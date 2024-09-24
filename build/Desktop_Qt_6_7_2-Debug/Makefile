@@ -52,10 +52,20 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../main.cpp \
-		../../mainwindow.cpp moc_mainwindow.cpp
+SOURCES       = ../../src/main.cpp \
+		../../src/adyacency_matrix.cpp \
+		../../src/game_state.cpp \
+		../../src/mainwindow.cpp \
+		../../src/map.cpp \
+		../../src/tank.cpp \
+		../../src/bullet.cpp moc_mainwindow.cpp
 OBJECTS       = main.o \
+		adyacency_matrix.o \
+		game_state.o \
 		mainwindow.o \
+		map.o \
+		tank.o \
+		bullet.o \
 		moc_mainwindow.o
 DIST          = /Qt/6.7.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/common/unix.conf \
@@ -255,6 +265,7 @@ DIST          = /Qt/6.7.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/features/qt_config.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/Qt/6.7.2/gcc_64/mkspecs/features/spec_post.prf \
+		../../.qmake.stash \
 		/Qt/6.7.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/features/toolchain.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -276,8 +287,18 @@ DIST          = /Qt/6.7.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/features/exceptions.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/features/yacc.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/features/lex.prf \
-		../../../../TankAttack_DSA-II.pro ../../mainwindow.h ../../main.cpp \
-		../../mainwindow.cpp
+		../../../../TankAttack_DSA-II.pro ../../include/mainwindow.h \
+		../../include/adyacency_matrix.h \
+		../../include/game_state.h \
+		../../include/map.h \
+		../../include/tank.h \
+		../../include/bullet.h ../../src/main.cpp \
+		../../src/adyacency_matrix.cpp \
+		../../src/game_state.cpp \
+		../../src/mainwindow.cpp \
+		../../src/map.cpp \
+		../../src/tank.cpp \
+		../../src/bullet.cpp
 QMAKE_TARGET  = TankAttack_DSA-II
 DESTDIR       = 
 TARGET        = TankAttack_DSA-II
@@ -487,6 +508,7 @@ Makefile: ../../TankAttack_DSA-II.pro ../../../../Qt/6.7.2/gcc_64/mkspecs/featur
 		../../../../Qt/6.7.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../../../Qt/6.7.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../../../Qt/6.7.2/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../../Qt/6.7.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/6.7.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../../../Qt/6.7.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -711,6 +733,7 @@ Makefile: ../../TankAttack_DSA-II.pro ../../../../Qt/6.7.2/gcc_64/mkspecs/featur
 ../../../../Qt/6.7.2/gcc_64/mkspecs/features/qt_config.prf:
 ../../../../Qt/6.7.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../../../Qt/6.7.2/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../../Qt/6.7.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/6.7.2/gcc_64/mkspecs/features/toolchain.prf:
 ../../../../Qt/6.7.2/gcc_64/mkspecs/features/default_pre.prf:
@@ -751,9 +774,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/6.7.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../main.cpp ../../mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../../include/mainwindow.h ../../include/adyacency_matrix.h ../../include/game_state.h ../../include/map.h ../../include/tank.h ../../include/bullet.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../src/main.cpp ../../src/adyacency_matrix.cpp ../../src/game_state.cpp ../../src/mainwindow.cpp ../../src/map.cpp ../../src/tank.cpp ../../src/bullet.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../ui/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -788,7 +811,7 @@ moc_predefs.h: ../../../../Qt/6.7.2/gcc_64/mkspecs/features/data/dummy.cpp
 compiler_moc_header_make_all: moc_mainwindow.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
-moc_mainwindow.cpp: ../../mainwindow.h \
+moc_mainwindow.cpp: ../../include/mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -978,7 +1001,7 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		moc_predefs.h \
 		../../../../Qt/6.7.2/gcc_64/libexec/moc
-	/home/joel-barboza/Qt/6.7.2/gcc_64/libexec/moc $(DEFINES) --include /home/joel-barboza/CLionProjects/TankAttack_DSA-II/build/Desktop_Qt_6_7_2-Debug/moc_predefs.h -I/home/joel-barboza/Qt/6.7.2/gcc_64/mkspecs/linux-g++ -I/home/joel-barboza/CLionProjects/TankAttack_DSA-II -I/home/joel-barboza/Qt/6.7.2/gcc_64/include -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtWidgets -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtGui -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mainwindow.h -o moc_mainwindow.cpp
+	/home/joel-barboza/Qt/6.7.2/gcc_64/libexec/moc $(DEFINES) --include /home/joel-barboza/CLionProjects/TankAttack_DSA-II/build/Desktop_Qt_6_7_2-Debug/moc_predefs.h -I/home/joel-barboza/Qt/6.7.2/gcc_64/mkspecs/linux-g++ -I/home/joel-barboza/CLionProjects/TankAttack_DSA-II -I/home/joel-barboza/Qt/6.7.2/gcc_64/include -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtWidgets -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtGui -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../include/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -987,9 +1010,9 @@ compiler_moc_source_clean:
 compiler_uic_make_all: ui_mainwindow.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_mainwindow.h
-ui_mainwindow.h: ../../mainwindow.ui \
+ui_mainwindow.h: ../../ui/mainwindow.ui \
 		../../../../Qt/6.7.2/gcc_64/libexec/uic
-	/home/joel-barboza/Qt/6.7.2/gcc_64/libexec/uic ../../mainwindow.ui -o ui_mainwindow.h
+	/home/joel-barboza/Qt/6.7.2/gcc_64/libexec/uic ../../ui/mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -1001,7 +1024,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../../main.cpp ../../mainwindow.h \
+main.o: ../../src/main.cpp ../../include/mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1191,9 +1214,15 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../src/main.cpp
 
-mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
+adyacency_matrix.o: ../../src/adyacency_matrix.cpp ../../include/adyacency_matrix.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o adyacency_matrix.o ../../src/adyacency_matrix.cpp
+
+game_state.o: ../../src/game_state.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o game_state.o ../../src/game_state.cpp
+
+mainwindow.o: ../../src/mainwindow.cpp ../../include/mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1381,8 +1410,26 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtCore/qlocale.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qguiapplication_platform.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtabwidget.h \
-		ui_mainwindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
+		ui_mainwindow.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtCore/QVariant \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QMenuBar \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmenubar.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmenu.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QStatusBar \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qstatusbar.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QWidget
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../src/mainwindow.cpp
+
+map.o: ../../src/map.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o map.o ../../src/map.cpp
+
+tank.o: ../../src/tank.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tank.o ../../src/tank.cpp
+
+bullet.o: ../../src/bullet.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bullet.o ../../src/bullet.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

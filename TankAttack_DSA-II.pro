@@ -8,15 +8,34 @@ CONFIG += c++17
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-SOURCES += \
-    main.cpp \
-    mainwindow.cpp
+# SOURCES += \
+#     main.cpp \
+#     mainwindow.cpp
 
-HEADERS += \
-    mainwindow.h
+# HEADERS += \
+#     mainwindow.h
 
-FORMS += \
-    mainwindow.ui
+# FORMS += \
+#     mainwindow.ui
+
+
+HEADERS += include/mainwindow.h \
+           include/adjacency_matrix.h \
+           include/game_state.h \
+           include/map.h \
+           include/tank.h \
+           include/bullet.h
+
+SOURCES += src/main.cpp \
+           src/adjacency_matrix.cpp \
+           src/game_state.cpp \
+           src/mainwindow.cpp \
+           src/map.cpp \
+           src/tank.cpp \
+           src/bullet.cpp
+
+FORMS += ui/mainwindow.ui
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
