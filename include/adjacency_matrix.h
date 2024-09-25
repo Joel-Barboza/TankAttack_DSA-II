@@ -1,8 +1,9 @@
 #ifndef ADJACENCY_MATRIX_H
 #define ADJACENCY_MATRIX_H
 
-#include "limits"
+//#include "limits"
 #include "iostream"
+#include "include/singly_linked_list.h"
 
 template<typename T>
 class AdjacencyMatrix
@@ -22,7 +23,9 @@ public:
 
     // void setFree(int i, int j);
 
-    // void placeObstacles();
+    void placeObstacles();
+
+    SinglyLinkedList<int*>* getList();
 
 
 private:
@@ -40,6 +43,8 @@ private:
     int matrixOrder = 0;
     int gridRows = 0;
     int gridColumns = 0;
+    SinglyLinkedList<int*>* list = new SinglyLinkedList<int*>();
+
 };
 
 template<typename T>
@@ -58,6 +63,7 @@ AdjacencyMatrix<T>::AdjacencyMatrix(int n, int m) {
         Node* newRight = new Node();
         currentColumn->right = newRight;
         currentColumn = currentColumn->right;
+        this->list->insert(&newRight->weight);
     }
 
     Node* currentRowStart = this->head;
@@ -108,42 +114,44 @@ void AdjacencyMatrix<T>::resetAllWeigths() {
     }
 }
 
-// template<typename T>
-// void AdjacencyMatrix<T>::setOccupied(int i, int j) {
-//     if (i >= this->gridRows || j >= this->gridColumns ) {
-//         std::cerr << "Invalid matrix element!" << std::endl;
-//         return;
-//     }
-//     Node* current = this->head;
+template<typename T>
+void AdjacencyMatrix<T>::placeObstacles() {
+    int pepe = this->matrixOrder;
+    SinglyLinkedList<int>* occupiedCells = new SinglyLinkedList<T>();
+    srand(time(0));
+    for (int i = 1; i <= this->matrixOrder/10; ++i) {
+        int toPlaceObst = rand()%pepe + 1;
+        while (occupiedCells->find(toPlaceObst)) {
+            toPlaceObst = rand()%pepe + 1;
+        }
+        occupiedCells->insert(toPlaceObst);
+    }
 
-//     for (int row = 0; row < i; ++row) {
-//         current = current->down;
-//     }
+    auto* LLhead =occupiedCells->getHead();
+    while (LLhead != nullptr) {
+        Node* currentRowElem = this->head;
+        Node* currentColumnElem = this->head;
+        for (int i = 0; i < LLhead->data; ++i) {
+            currentRowElem = currentRowElem->down;
+            currentColumnElem = currentColumnElem->right;
+        }
+        while (currentRowElem != nullptr) {
+            currentRowElem->isOccupied = true;
+            currentRowElem->weight = -1;
+            currentColumnElem->isOccupied = true;
+            currentColumnElem->weight = -1;
+            currentRowElem = currentRowElem->right;
+            currentColumnElem = currentColumnElem->down;
+        }
+        LLhead = LLhead->next;
+    }
+}
 
-//     for (int column = 0; column < j; ++column) {
-//         current = current->right;
-//     }
+template<typename T>
+SinglyLinkedList<int*>* AdjacencyMatrix<T>::getList() {
+    return this->list;
+}
 
-//     current->isOccupied = true;
-// }
 
-// template<typename T>
-// void AdjacencyMatrix<T>::setOccupied(int i, int j) {
-//     if (i >= this->gridRows || j >= this->gridColumns ) {
-//         std::cerr << "Invalid matrix element!" << std::endl;
-//         return;
-//     }
-//     Node* current = this->head;
-
-//     for (int row = 0; row < i; ++row) {
-//         current = current->down;
-//     }
-
-//     for (int column = 0; column < j; ++column) {
-//         current = current->right;
-//     }
-
-//     current->isOccupied = true;
-// }
 
 #endif // ADJACENCY_MATRIX_H

@@ -53,14 +53,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00081160-a8ff-4801-a783-21758c3dd58e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/adjacency_matrix.cpp.74F730295A093F39.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/adjacency_matrix.cpp.74F730295A093F39.idx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/singly_linked_list.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TankAttack_DSA-II.pro" beforeDir="false" afterPath="$PROJECT_DIR$/TankAttack_DSA-II.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TankAttack_DSA-II.pro.user" beforeDir="false" afterPath="$PROJECT_DIR$/TankAttack_DSA-II.pro.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/adjacency_matrix.h.B338DCB380880BE1.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/adjacency_matrix.h.B338DCB380880BE1.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/main.cpp.350CE830AB37D917.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/main.cpp.350CE830AB37D917.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/compile_commands.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/TankAttack_DSA-II" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/TankAttack_DSA-II" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/adyacency_matrix.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/moc_mainwindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/moc_mainwindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/moc_mainwindow.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/moc_mainwindow.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/adjacency_matrix.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/adjacency_matrix.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/main.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/adjacency_matrix.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/adjacency_matrix.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +144,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Joel/AdjMatrix",
     "last_opened_file_path": "/home/joel-barboza/CLionProjects/TankAttack_DSA-II",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -339,7 +342,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Makefile Target.Makefile" />
+      <item itemvalue="Native Application.FORCE" />
+      <item itemvalue="Native Application.TankAttack_DSA-II" />
       <item itemvalue="Native Application.all" />
       <item itemvalue="Native Application.benchmark" />
       <item itemvalue="Native Application.check" />
@@ -366,16 +370,15 @@
       <item itemvalue="Native Application.distclean" />
       <item itemvalue="Native Application.distdir" />
       <item itemvalue="Native Application.first" />
-      <item itemvalue="Native Application.FORCE" />
       <item itemvalue="Native Application.install" />
       <item itemvalue="Native Application.install_target" />
       <item itemvalue="Native Application.mocables" />
       <item itemvalue="Native Application.mocclean" />
       <item itemvalue="Native Application.qmake" />
       <item itemvalue="Native Application.qmake_all" />
-      <item itemvalue="Native Application.TankAttack_DSA-II" />
       <item itemvalue="Native Application.uninstall" />
       <item itemvalue="Native Application.uninstall_target" />
+      <item itemvalue="Makefile Target.Makefile" />
     </list>
     <recent_temporary>
       <list>
@@ -393,6 +396,7 @@
       <updated>1727163469723</updated>
       <workItem from="1727163470853" duration="1183000" />
       <workItem from="1727164759700" duration="311000" />
+      <workItem from="1727237875194" duration="27000" />
     </task>
     <servers />
   </component>

@@ -23,10 +23,13 @@ HEADERS += include/mainwindow.h \
            include/adjacency_matrix.h \
            include/game_state.h \
            include/map.h \
+           include/player_data.h \
+           include/singly_linked_list.h \
            include/tank.h \
            include/bullet.h
 
 SOURCES += src/main.cpp \
+           src/player_data.cpp \
            src/game_state.cpp \
            src/mainwindow.cpp \
            src/map.cpp \
