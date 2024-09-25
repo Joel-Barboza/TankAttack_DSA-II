@@ -53,14 +53,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../../src/main.cpp \
-		../../src/adyacency_matrix.cpp \
 		../../src/game_state.cpp \
 		../../src/mainwindow.cpp \
 		../../src/map.cpp \
 		../../src/tank.cpp \
 		../../src/bullet.cpp moc_mainwindow.cpp
 OBJECTS       = main.o \
-		adyacency_matrix.o \
 		game_state.o \
 		mainwindow.o \
 		map.o \
@@ -288,12 +286,11 @@ DIST          = /Qt/6.7.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/features/yacc.prf \
 		/Qt/6.7.2/gcc_64/mkspecs/features/lex.prf \
 		../../../../TankAttack_DSA-II.pro ../../include/mainwindow.h \
-		../../include/adyacency_matrix.h \
+		../../include/adjacency_matrix.h \
 		../../include/game_state.h \
 		../../include/map.h \
 		../../include/tank.h \
 		../../include/bullet.h ../../src/main.cpp \
-		../../src/adyacency_matrix.cpp \
 		../../src/game_state.cpp \
 		../../src/mainwindow.cpp \
 		../../src/map.cpp \
@@ -774,8 +771,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/6.7.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../include/mainwindow.h ../../include/adyacency_matrix.h ../../include/game_state.h ../../include/map.h ../../include/tank.h ../../include/bullet.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../src/main.cpp ../../src/adyacency_matrix.cpp ../../src/game_state.cpp ../../src/mainwindow.cpp ../../src/map.cpp ../../src/tank.cpp ../../src/bullet.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../include/mainwindow.h ../../include/adjacency_matrix.h ../../include/game_state.h ../../include/map.h ../../include/tank.h ../../include/bullet.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../src/main.cpp ../../src/game_state.cpp ../../src/mainwindow.cpp ../../src/map.cpp ../../src/tank.cpp ../../src/bullet.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ui/mainwindow.ui $(DISTDIR)/
 
 
@@ -1212,12 +1209,10 @@ main.o: ../../src/main.cpp ../../include/mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtCore/qlocale.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qguiapplication_platform.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../include/adjacency_matrix.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../src/main.cpp
-
-adyacency_matrix.o: ../../src/adyacency_matrix.cpp ../../include/adyacency_matrix.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o adyacency_matrix.o ../../src/adyacency_matrix.cpp
 
 game_state.o: ../../src/game_state.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o game_state.o ../../src/game_state.cpp
@@ -1410,16 +1405,7 @@ mainwindow.o: ../../src/mainwindow.cpp ../../include/mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtCore/qlocale.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qguiapplication_platform.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtabwidget.h \
-		ui_mainwindow.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtCore/QVariant \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QMenuBar \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmenubar.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmenu.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QStatusBar \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qstatusbar.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QWidget
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../src/mainwindow.cpp
 
 map.o: ../../src/map.cpp 

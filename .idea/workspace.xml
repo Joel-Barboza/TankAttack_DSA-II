@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="TankAttack_DSA-II" targetName="all" />
+      <config projectName="TankAttack_DSA-II" targetName="mocclean" />
+      <config projectName="TankAttack_DSA-II" targetName="qmake_all" />
+      <config projectName="TankAttack_DSA-II" targetName="install_target" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_yacc_decl_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_rcc_make_all" />
+      <config projectName="TankAttack_DSA-II" targetName="first" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_moc_header_make_all" />
+      <config projectName="TankAttack_DSA-II" targetName="FORCE" />
+      <config projectName="TankAttack_DSA-II" targetName="qmake" />
+      <config projectName="TankAttack_DSA-II" targetName="uninstall" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_lex_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="install" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_moc_objc_header_make_all" />
+      <config projectName="TankAttack_DSA-II" targetName="dist" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="uninstall_target" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_moc_source_make_all" />
+      <config projectName="TankAttack_DSA-II" targetName="benchmark" />
+      <config projectName="TankAttack_DSA-II" targetName="distdir" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_yacc_impl_make_all" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_moc_source_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_lex_make_all" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_moc_header_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="distclean" />
+      <config projectName="TankAttack_DSA-II" targetName="TankAttack_DSA-II" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_uic_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="mocables" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_moc_objc_header_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_yacc_impl_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_uic_make_all" />
+      <config projectName="TankAttack_DSA-II" targetName="check" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_yacc_decl_make_all" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_moc_predefs_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_rcc_clean" />
+      <config projectName="TankAttack_DSA-II" targetName="compiler_moc_predefs_make_all" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="00081160-a8ff-4801-a783-21758c3dd58e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/adjacency_matrix.cpp.74F730295A093F39.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/adjacency_matrix.cpp.74F730295A093F39.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/adjacency_matrix.h.B338DCB380880BE1.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/.qtc_clangd/.cache/clangd/index/adjacency_matrix.h.B338DCB380880BE1.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/TankAttack_DSA-II" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/TankAttack_DSA-II" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/adyacency_matrix.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/moc_mainwindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/moc_mainwindow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/moc_mainwindow.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/moc_mainwindow.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/adjacency_matrix.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/adjacency_matrix.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Joel-Barboza&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:Joel-Barboza/TankAttack_DSA-II.git&quot;,
+    &quot;accountId&quot;: &quot;cee84de8-b0a8-42f2-be06-5cf80d056e76&quot;
+  }
+}</component>
+  <component name="MakefileLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="TankAttack_DSA-II" />
+              <option name="path" value="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="TankAttack_DSA-II" />
+                <option name="path" value="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug" value="RE_IMPORT" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2024" />
+    <option name="minorVersion" value="2.2" />
+    <option name="productBranch" value="Classic" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2mVYz5rPkMWTouLq9iSp8jtdmNn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Makefile Target.Makefile.executor": "Run",
+    "Native Application.all.executor": "Run",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/joel-barboza/CLionProjects/TankAttack_DSA-II",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Makefile Target.Makefile">
+    <configuration name="FORCE" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="FORCE" CONFIG_NAME="FORCE" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TankAttack_DSA-II" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="TankAttack_DSA-II" CONFIG_NAME="TankAttack_DSA-II" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="all" CONFIG_NAME="all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="benchmark" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="benchmark" CONFIG_NAME="benchmark" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="check" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="check" CONFIG_NAME="check" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_clean" CONFIG_NAME="compiler_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_lex_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_lex_clean" CONFIG_NAME="compiler_lex_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_lex_make_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_lex_make_all" CONFIG_NAME="compiler_lex_make_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_moc_header_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_moc_header_clean" CONFIG_NAME="compiler_moc_header_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_moc_header_make_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_moc_header_make_all" CONFIG_NAME="compiler_moc_header_make_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_moc_objc_header_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_moc_objc_header_clean" CONFIG_NAME="compiler_moc_objc_header_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_moc_objc_header_make_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_moc_objc_header_make_all" CONFIG_NAME="compiler_moc_objc_header_make_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_moc_predefs_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_moc_predefs_clean" CONFIG_NAME="compiler_moc_predefs_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_moc_predefs_make_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_moc_predefs_make_all" CONFIG_NAME="compiler_moc_predefs_make_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_moc_source_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_moc_source_clean" CONFIG_NAME="compiler_moc_source_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_moc_source_make_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_moc_source_make_all" CONFIG_NAME="compiler_moc_source_make_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_rcc_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_rcc_clean" CONFIG_NAME="compiler_rcc_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_rcc_make_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_rcc_make_all" CONFIG_NAME="compiler_rcc_make_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_uic_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_uic_clean" CONFIG_NAME="compiler_uic_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_uic_make_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_uic_make_all" CONFIG_NAME="compiler_uic_make_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_yacc_decl_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_yacc_decl_clean" CONFIG_NAME="compiler_yacc_decl_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_yacc_decl_make_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_yacc_decl_make_all" CONFIG_NAME="compiler_yacc_decl_make_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_yacc_impl_clean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_yacc_impl_clean" CONFIG_NAME="compiler_yacc_impl_clean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="compiler_yacc_impl_make_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="compiler_yacc_impl_make_all" CONFIG_NAME="compiler_yacc_impl_make_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="dist" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="dist" CONFIG_NAME="dist" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="distclean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="distclean" CONFIG_NAME="distclean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="distdir" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="distdir" CONFIG_NAME="distdir" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="first" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="first" CONFIG_NAME="first" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="install" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="install" CONFIG_NAME="install" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="install_target" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="install_target" CONFIG_NAME="install_target" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="mocables" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="mocables" CONFIG_NAME="mocables" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="mocclean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="mocclean" CONFIG_NAME="mocclean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="qmake" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="qmake" CONFIG_NAME="qmake" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="qmake_all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="qmake_all" CONFIG_NAME="qmake_all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="uninstall" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="uninstall" CONFIG_NAME="uninstall" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="uninstall_target" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="TankAttack_DSA-II" TARGET_NAME="uninstall_target" CONFIG_NAME="uninstall_target" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Makefile" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/build/Desktop_Qt_6_7_2-Debug/Makefile" target="" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Makefile Target.Makefile" />
+      <item itemvalue="Native Application.all" />
+      <item itemvalue="Native Application.benchmark" />
+      <item itemvalue="Native Application.check" />
+      <item itemvalue="Native Application.compiler_clean" />
+      <item itemvalue="Native Application.compiler_lex_clean" />
+      <item itemvalue="Native Application.compiler_lex_make_all" />
+      <item itemvalue="Native Application.compiler_moc_header_clean" />
+      <item itemvalue="Native Application.compiler_moc_header_make_all" />
+      <item itemvalue="Native Application.compiler_moc_objc_header_clean" />
+      <item itemvalue="Native Application.compiler_moc_objc_header_make_all" />
+      <item itemvalue="Native Application.compiler_moc_predefs_clean" />
+      <item itemvalue="Native Application.compiler_moc_predefs_make_all" />
+      <item itemvalue="Native Application.compiler_moc_source_clean" />
+      <item itemvalue="Native Application.compiler_moc_source_make_all" />
+      <item itemvalue="Native Application.compiler_rcc_clean" />
+      <item itemvalue="Native Application.compiler_rcc_make_all" />
+      <item itemvalue="Native Application.compiler_uic_clean" />
+      <item itemvalue="Native Application.compiler_uic_make_all" />
+      <item itemvalue="Native Application.compiler_yacc_decl_clean" />
+      <item itemvalue="Native Application.compiler_yacc_decl_make_all" />
+      <item itemvalue="Native Application.compiler_yacc_impl_clean" />
+      <item itemvalue="Native Application.compiler_yacc_impl_make_all" />
+      <item itemvalue="Native Application.dist" />
+      <item itemvalue="Native Application.distclean" />
+      <item itemvalue="Native Application.distdir" />
+      <item itemvalue="Native Application.first" />
+      <item itemvalue="Native Application.FORCE" />
+      <item itemvalue="Native Application.install" />
+      <item itemvalue="Native Application.install_target" />
+      <item itemvalue="Native Application.mocables" />
+      <item itemvalue="Native Application.mocclean" />
+      <item itemvalue="Native Application.qmake" />
+      <item itemvalue="Native Application.qmake_all" />
+      <item itemvalue="Native Application.TankAttack_DSA-II" />
+      <item itemvalue="Native Application.uninstall" />
+      <item itemvalue="Native Application.uninstall_target" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile Target.Makefile" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="00081160-a8ff-4801-a783-21758c3dd58e" name="Changes" comment="" />
+      <created>1727163469723</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727163469723</updated>
+      <workItem from="1727163470853" duration="1183000" />
+      <workItem from="1727164759700" duration="311000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

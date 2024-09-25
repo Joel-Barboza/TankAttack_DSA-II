@@ -27,7 +27,6 @@ HEADERS += include/mainwindow.h \
            include/bullet.h
 
 SOURCES += src/main.cpp \
-           src/adjacency_matrix.cpp \
            src/game_state.cpp \
            src/mainwindow.cpp \
            src/map.cpp \
