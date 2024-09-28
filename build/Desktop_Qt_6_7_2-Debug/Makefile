@@ -297,6 +297,7 @@ DIST          = /Qt/6.7.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../include/map.h \
 		../../include/player_data.h \
 		../../include/singly_linked_list.h \
+		../../include/square_items.h \
 		../../include/tank.h \
 		../../include/bullet.h ../../src/main.cpp \
 		../../src/player_data.cpp \
@@ -780,7 +781,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/6.7.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../include/mainwindow.h ../../include/adjacency_matrix.h ../../include/game_state.h ../../include/map.h ../../include/player_data.h ../../include/singly_linked_list.h ../../include/tank.h ../../include/bullet.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../include/mainwindow.h ../../include/adjacency_matrix.h ../../include/game_state.h ../../include/map.h ../../include/player_data.h ../../include/singly_linked_list.h ../../include/square_items.h ../../include/tank.h ../../include/bullet.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../src/main.cpp ../../src/player_data.cpp ../../src/game_state.cpp ../../src/mainwindow.cpp ../../src/map.cpp ../../src/tank.cpp ../../src/bullet.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../ui/mainwindow.ui $(DISTDIR)/
 
@@ -818,6 +819,9 @@ compiler_moc_header_make_all: moc_mainwindow.cpp moc_map.cpp moc_player_data.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp moc_map.cpp moc_player_data.cpp
 moc_mainwindow.cpp: ../../include/mainwindow.h \
+		../../include/game_state.h \
+		../../include/adjacency_matrix.h \
+		../../include/singly_linked_list.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1006,21 +1010,31 @@ moc_mainwindow.cpp: ../../include/mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qguiapplication_platform.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../include/map.h \
-		../../include/adjacency_matrix.h \
-		../../include/singly_linked_list.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGridLayout \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
 		../../include/player_data.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QVBoxLayout \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlabel.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpicture.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractbutton.h \
 		moc_predefs.h \
 		../../../../Qt/6.7.2/gcc_64/libexec/moc
 	/home/joel-barboza/Qt/6.7.2/gcc_64/libexec/moc $(DEFINES) --include /home/joel-barboza/CLionProjects/TankAttack_DSA-II/build/Desktop_Qt_6_7_2-Debug/moc_predefs.h -I/home/joel-barboza/Qt/6.7.2/gcc_64/mkspecs/linux-g++ -I/home/joel-barboza/CLionProjects/TankAttack_DSA-II -I/home/joel-barboza/Qt/6.7.2/gcc_64/include -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtWidgets -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtGui -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../include/mainwindow.h -o moc_mainwindow.cpp
@@ -1218,6 +1232,17 @@ moc_map.cpp: ../../include/map.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
+		../../include/game_state.h \
 		moc_predefs.h \
 		../../../../Qt/6.7.2/gcc_64/libexec/moc
 	/home/joel-barboza/Qt/6.7.2/gcc_64/libexec/moc $(DEFINES) --include /home/joel-barboza/CLionProjects/TankAttack_DSA-II/build/Desktop_Qt_6_7_2-Debug/moc_predefs.h -I/home/joel-barboza/Qt/6.7.2/gcc_64/mkspecs/linux-g++ -I/home/joel-barboza/CLionProjects/TankAttack_DSA-II -I/home/joel-barboza/Qt/6.7.2/gcc_64/include -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtWidgets -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtGui -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../include/map.h -o moc_map.cpp
@@ -1418,6 +1443,12 @@ moc_player_data.cpp: ../../include/player_data.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpicture.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractbutton.h \
 		moc_predefs.h \
 		../../../../Qt/6.7.2/gcc_64/libexec/moc
 	/home/joel-barboza/Qt/6.7.2/gcc_64/libexec/moc $(DEFINES) --include /home/joel-barboza/CLionProjects/TankAttack_DSA-II/build/Desktop_Qt_6_7_2-Debug/moc_predefs.h -I/home/joel-barboza/Qt/6.7.2/gcc_64/mkspecs/linux-g++ -I/home/joel-barboza/CLionProjects/TankAttack_DSA-II -I/home/joel-barboza/Qt/6.7.2/gcc_64/include -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtWidgets -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtGui -I/home/joel-barboza/Qt/6.7.2/gcc_64/include/QtCore -I. -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../include/player_data.h -o moc_player_data.cpp
@@ -1444,6 +1475,9 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 main.o: ../../src/main.cpp ../../include/mainwindow.h \
+		../../include/game_state.h \
+		../../include/adjacency_matrix.h \
+		../../include/singly_linked_list.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1632,21 +1666,31 @@ main.o: ../../src/main.cpp ../../include/mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qguiapplication_platform.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../include/map.h \
-		../../include/adjacency_matrix.h \
-		../../include/singly_linked_list.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGridLayout \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
 		../../include/player_data.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QVBoxLayout \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlabel.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpicture.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QApplication \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../src/main.cpp
@@ -1846,13 +1890,24 @@ player_data.o: ../../src/player_data.cpp ../../include/player_data.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpicture.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextdocument.h
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o player_data.o ../../src/player_data.cpp
 
-game_state.o: ../../src/game_state.cpp 
+game_state.o: ../../src/game_state.cpp ../../include/game_state.h \
+		../../include/adjacency_matrix.h \
+		../../include/singly_linked_list.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o game_state.o ../../src/game_state.cpp
 
 mainwindow.o: ../../src/mainwindow.cpp ../../include/mainwindow.h \
+		../../include/game_state.h \
+		../../include/adjacency_matrix.h \
+		../../include/singly_linked_list.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -2041,21 +2096,31 @@ mainwindow.o: ../../src/mainwindow.cpp ../../include/mainwindow.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qguiapplication_platform.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../include/map.h \
-		../../include/adjacency_matrix.h \
-		../../include/singly_linked_list.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QWidget \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGridLayout \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
 		../../include/player_data.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QVBoxLayout \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlabel.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpicture.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QPushButton \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractbutton.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../src/mainwindow.cpp
 
@@ -2251,7 +2316,26 @@ map.o: ../../src/map.cpp ../../include/map.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayout.h \
 		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qboxlayout.h
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsScene \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsview.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpainter.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qframe.h \
+		../../include/game_state.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsRectItem \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicsitem.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/qpainterpath.h \
+		../../include/square_items.h \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/QBrush \
+		../../../../Qt/6.7.2/gcc_64/include/QtGui/QPen \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/QGraphicsSceneHoverEvent \
+		../../../../Qt/6.7.2/gcc_64/include/QtWidgets/qgraphicssceneevent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o map.o ../../src/map.cpp
 
 tank.o: ../../src/tank.cpp 

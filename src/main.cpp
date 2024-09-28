@@ -1,20 +1,17 @@
 #include "include/mainwindow.h"
 #include "include/adjacency_matrix.h"
 #include <QApplication>
+#include <include/game_state.h>
 
 int main(int argc, char *argv[])
 {
 
-    int rows = 20;
-    int columns = 28;
-    AdjacencyMatrix<int>* graph = new AdjacencyMatrix<int>(rows,columns);
+    GameState* gameState = new GameState();
 
-
-    graph->placeObstacles();
-
-    //graph->printAdjMatrix();
+    //gameState->adjMatrix->printAdjMatrix();
     QApplication a(argc, argv);
-    MainWindow w(nullptr, rows, columns, graph);
-    w.show();
+    MainWindow mainWindow(nullptr, gameState); //  rows, columns, graph
+    mainWindow.setFixedSize(1200, 800);
+    mainWindow.show();
     return a.exec();
 }

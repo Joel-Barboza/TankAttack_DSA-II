@@ -15,7 +15,9 @@ public:
 
     void resetAllWeigths();
     // Sets weight of row i, column j node
-    // void setWeight(int i, int j);
+    void setWeight(int i, int j, int weight);
+
+    void addEdges();
 
     void printAdjMatrix();
 
@@ -115,23 +117,57 @@ void AdjacencyMatrix<T>::resetAllWeigths() {
 }
 
 template<typename T>
+void AdjacencyMatrix<T>::setWeight(int i, int j, int weight)
+{
+    Node* current = this->head;
+    for (int row = 0; row < i; ++row) {
+        current = current->down;
+    }
+    for (int column = 0; column < j; ++column) {
+        current = current->right;
+    }
+    current->weight = weight;
+}
+
+template<typename T>
+void AdjacencyMatrix<T>::addEdges()
+{
+    Node* currentRowStart = this->head->down;
+    for (int i = 0; i < matrixOrder; ++i) {
+        Node* currentColumn = currentRowStart;
+        for (int j = 0; j < matrixOrder; ++j) {
+            if (((i+1) == j&& j%gridColumns!=0) || ((i-1) == j && i%gridColumns!=0)) {
+                currentColumn->weight = 1;
+            }
+            if (i+gridColumns == j || (i-gridColumns) == j) {
+                currentColumn->weight = 1;
+            }
+            // std::cout << currentColumn->weight << " ";
+            currentColumn = currentColumn->right;
+        }
+        // std::cout << "\n";
+        currentRowStart = currentRowStart->down;
+    }
+}
+
+template<typename T>
 void AdjacencyMatrix<T>::placeObstacles() {
-    int pepe = this->matrixOrder;
+    int matrixOrder = this->matrixOrder;
     SinglyLinkedList<int>* occupiedCells = new SinglyLinkedList<T>();
     srand(time(0));
     for (int i = 1; i <= this->matrixOrder/10; ++i) {
-        int toPlaceObst = rand()%pepe + 1;
+        int toPlaceObst = rand()%matrixOrder + 1;
         while (occupiedCells->find(toPlaceObst)) {
-            toPlaceObst = rand()%pepe + 1;
+            toPlaceObst = rand()%matrixOrder + 1;
         }
         occupiedCells->insert(toPlaceObst);
     }
 
-    auto* LLhead =occupiedCells->getHead();
-    while (LLhead != nullptr) {
+    auto* LinkedLhead =occupiedCells->getHead();
+    while (LinkedLhead != nullptr) {
         Node* currentRowElem = this->head;
         Node* currentColumnElem = this->head;
-        for (int i = 0; i < LLhead->data; ++i) {
+        for (int i = 0; i < LinkedLhead->data; ++i) {
             currentRowElem = currentRowElem->down;
             currentColumnElem = currentColumnElem->right;
         }
@@ -143,7 +179,7 @@ void AdjacencyMatrix<T>::placeObstacles() {
             currentRowElem = currentRowElem->right;
             currentColumnElem = currentColumnElem->down;
         }
-        LLhead = LLhead->next;
+        LinkedLhead = LinkedLhead->next;
     }
 }
 

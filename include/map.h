@@ -4,14 +4,18 @@
 #include "include/adjacency_matrix.h"
 #include <QWidget>
 #include <QGridLayout>
-class Map : public QWidget {
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <include/game_state.h>
+
+class Map : public QGraphicsScene {
     Q_OBJECT
 
 public:
-    explicit Map(QWidget *parent = nullptr, int rows = 1, int columns = 1, AdjacencyMatrix<int>* adjMatrix = nullptr);
+    explicit Map(QWidget *parent = nullptr, GameState* gameState = nullptr);
 
 private:
-    QGridLayout *gridLayout;
+    // QGridLayout *gridLayout;
     void createGrid(int numRows, int numCols, AdjacencyMatrix<int>* adjMatrix);  // Helper function to create the grid
 };
 

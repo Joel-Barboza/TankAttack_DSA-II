@@ -5,6 +5,8 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QGraphicsScene>
+#include <QPushButton>
 
 class PlayerData : public QWidget {
     Q_OBJECT
@@ -13,7 +15,8 @@ public:
     explicit PlayerData(QWidget *parent = nullptr);
 
 private:
-    QLabel *label;
+    QLabel *infoLabel;          // To show player information
+    QPushButton *powerUpButton; // To represent a power-up button
     void setupFooter();  // Helper function to setup the footer layout
 };
 

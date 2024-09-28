@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "game_state.h"
+
 #include <QMainWindow>
 #include <include/map.h>
 #include <include/player_data.h>
@@ -18,11 +20,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr, int rows = 1, int columns = 1, AdjacencyMatrix<int>* adjMatrix = nullptr);
+    MainWindow(QWidget *parent = nullptr, GameState* gameState = nullptr);
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
+    QGraphicsView *view;
     Map* map;
     PlayerData* playerData;
 };

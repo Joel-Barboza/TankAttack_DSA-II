@@ -25,6 +25,7 @@ HEADERS += include/mainwindow.h \
            include/map.h \
            include/player_data.h \
            include/singly_linked_list.h \
+           include/square_items.h \
            include/tank.h \
            include/bullet.h
 

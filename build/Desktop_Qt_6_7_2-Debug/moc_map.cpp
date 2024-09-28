@@ -59,7 +59,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSMapENDCLASS[] = {
 };
 
 Q_CONSTINIT const QMetaObject Map::staticMetaObject = { {
-    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
+    QMetaObject::SuperData::link<QGraphicsScene::staticMetaObject>(),
     qt_meta_stringdata_CLASSMapENDCLASS.offsetsAndSizes,
     qt_meta_data_CLASSMapENDCLASS,
     qt_static_metacall,
@@ -89,12 +89,12 @@ void *Map::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_CLASSMapENDCLASS.stringdata0))
         return static_cast<void*>(this);
-    return QWidget::qt_metacast(_clname);
+    return QGraphicsScene::qt_metacast(_clname);
 }
 
 int Map::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QGraphicsScene::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP

@@ -7,14 +7,14 @@ PlayerData::PlayerData(QWidget *parent) : QWidget(parent) {
 
 // Function to create the footer layout
 void PlayerData::setupFooter() {
-    QWidget* container = new QWidget(this);
-    QVBoxLayout* layout = new QVBoxLayout(container);
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    this->setFixedSize(1200, 100);
+    layout->setContentsMargins(0,0,0,0);
 
-    label = new QLabel("Player Data: Add controls or information here.");
-    layout->addWidget(label);
+    infoLabel = new QLabel("player info", this);
+    layout->addWidget(infoLabel);
 
-    container->setStyleSheet("background-color: lightblue;");
-
-    setLayout(layout);
+    this->setStyleSheet("background-color: lightblue;");
+    this->setLayout(layout);
 
 }
