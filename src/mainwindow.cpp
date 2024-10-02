@@ -16,10 +16,11 @@ MainWindow::MainWindow(QWidget *parent, GameState* gameState)
     view = new QGraphicsView(this);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 
 
     map = new Map(this, gameState);
-    map->setBackgroundBrush(QColor("gray"));
+    map->setBackgroundBrush(QColor("blue"));
 
     statusBar()->hide();
 

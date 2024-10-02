@@ -24,6 +24,8 @@ public:
     // Print the list
     void print() const;
 
+    void changeValue(int index, T newData);
+
     auto* getHead();
 
 private:
@@ -136,6 +138,19 @@ void SinglyLinkedList<T>::print() const {
 template<typename T>
 auto* SinglyLinkedList<T>::getHead() {
     return this->head;
+}
+
+template<typename T>
+void SinglyLinkedList<T>::changeValue(int index, T newData){
+    Node* current = head;
+    int counter = 0;
+    while (current != nullptr) {
+        if (counter == index) {
+            current->data = newData;
+        }
+        current = current->next;
+        ++counter;
+    }
 }
 
 #endif // SINGLY_LINKED_LIST_H

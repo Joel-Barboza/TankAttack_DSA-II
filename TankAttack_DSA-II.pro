@@ -23,9 +23,11 @@ HEADERS += include/mainwindow.h \
            include/adjacency_matrix.h \
            include/game_state.h \
            include/map.h \
+           include/paired_priority_queue.h \
            include/player_data.h \
            include/singly_linked_list.h \
            include/square_items.h \
+           include/struct_int_data_pair.h \
            include/tank.h \
            include/bullet.h
 
