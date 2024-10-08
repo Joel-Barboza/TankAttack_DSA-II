@@ -5,6 +5,7 @@
 #include <QBrush>
 #include <QPen>
 #include <QGraphicsSceneHoverEvent>
+#include <include/game_state.h>
 
 class SquareItem : public QGraphicsRectItem {
 public:
@@ -24,6 +25,9 @@ public:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override {
         qDebug() << "Square clicked at: " << squareId << "\n";
+        GameState::adjMatrix->dijkstra(squareId);/*
+        SinglyLinkedList<int>* sf = GameState::adjMatrix->printPath(0, new SinglyLinkedList<int>);
+        sf->print();*/
         QGraphicsRectItem::mousePressEvent(event);
     }
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override {

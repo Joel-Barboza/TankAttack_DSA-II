@@ -28,6 +28,7 @@ public:
 
     auto* getHead();
 
+    T getValue(int nodeIndex);
 private:
 
     // Node structure for the singly linked list
@@ -147,10 +148,23 @@ void SinglyLinkedList<T>::changeValue(int index, T newData){
     while (current != nullptr) {
         if (counter == index) {
             current->data = newData;
+            return;
         }
         current = current->next;
         ++counter;
     }
+}
+
+template<typename T>
+T SinglyLinkedList<T>::getValue(int nodeIndex) {
+    Node* current = head;
+    int counter = 0;
+    while (current->next != nullptr && counter < nodeIndex) {
+        current = current->next;
+        ++counter;
+    }
+    return current->data;
+
 }
 
 #endif // SINGLY_LINKED_LIST_H

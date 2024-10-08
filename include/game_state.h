@@ -7,9 +7,9 @@ class GameState{
 
 public:
     GameState();
-    int rows = 4;//14
-    int columns = 4;//24
-    AdjacencyMatrix<int>* adjMatrix = new AdjacencyMatrix<int>(rows,columns);
+    static int rows;//14
+    static int columns;//24
+    static AdjacencyMatrix<int>* adjMatrix;
 
 private:
 

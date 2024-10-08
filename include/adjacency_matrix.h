@@ -4,7 +4,7 @@
 #include "limits"
 #include "iostream"
 #include "include/singly_linked_list.h"
-#include "include/paired_priority_queue.h"
+// #include "include/paired_priority_queue.h"
 #include "include/struct_int_data_pair.h"
 
 template<typename T>
@@ -33,7 +33,7 @@ public:
 
     auto* getHead();
 
-    SinglyLinkedList<pairNode> dijkstra(int src);
+    void dijkstra(int src);
 
     pairNode* findPairInList(SinglyLinkedList<pairNode>& list, int nodeIndex);
 
@@ -41,9 +41,12 @@ public:
 
     void printDistances(SinglyLinkedList<pairNode> &distances);
 
-    int minDistance(int dist[], bool sptSet[]);
+    int minDistance(SinglyLinkedList<int>* dist, SinglyLinkedList<bool>* sptSet);
+    void printPath(int currentNode, SinglyLinkedList<int>*);
+    // Saves the index of the previous graph node, path is gotten by recursively checking the previous node until source (-1) is reached
+    SinglyLinkedList<int>* previousNode = new SinglyLinkedList<int>();
 
-    void printSolution(int dist[]);
+    SinglyLinkedList<int>* getPathTo(int nodeIndex, SinglyLinkedList<int>* list);
 private:
     struct Node {
         int weight;
@@ -72,107 +75,86 @@ auto* AdjacencyMatrix<T>::getHead(){
 }
 
 template<typename T>
-int AdjacencyMatrix<T>::minDistance(int dist[], bool sptSet[])
+int AdjacencyMatrix<T>::minDistance(SinglyLinkedList<int>* dist, SinglyLinkedList<bool>* sptSet)
 {
-    std::cout<< "Entering min distance funct  \n";
-
-    // Initialize min value
     int min = std::numeric_limits<int>::max();
     int min_index = -1;
 
     for (int v = 0; v < this->matrixOrder; v++) {
-        std::cout << "Node " << v << ": dist = " << dist[v]
-                  << ", sptSet = " << sptSet[v] << std::endl;
 
-        if (sptSet[v] == false && dist[v] <= min) {
-            min = dist[v];
+        if (sptSet->getValue(v) == false && dist->getValue(v) <= min) {
+            min = dist->getValue(v);
             min_index = v;
-            std::cout << "New min distance found: " << min
-                      << " at node " << min_index << std::endl;
         }
     }
-    std::cout<< "Going out of min distance funct  \n";
     return min_index;
 }
 
-template<typename T>
-void AdjacencyMatrix<T>::printSolution(int dist[])
-{
-    std::cout << "Vertex \t Distance from Source" << std::endl;
-    for (int i = 0; i < this->matrixOrder; i++)
-        std::cout << i << " \t\t\t\t" << dist[i] << std::endl;
-}
+
 
 template<typename T>
-SinglyLinkedList<pairNode> AdjacencyMatrix<T>::dijkstra(int src){
+void AdjacencyMatrix<T>::dijkstra(int src){
     const int  INT_MAX = std::numeric_limits<int>::max();
-    int dist[this->matrixOrder]; // The output array.  dist[i] will hold the
-        // shortest
-    // distance from src to i
+    SinglyLinkedList<int>* dist = new SinglyLinkedList<int>();
+    SinglyLinkedList<bool>* sptSet = new SinglyLinkedList<bool>();
 
-    bool sptSet[this->matrixOrder]; // sptSet[i] will be true if vertex i is
-        // included in shortest
-    // path tree or shortest distance from src to i is
-    // finalized
 
-    // Initialize all distances as INFINITE and stpSet[] as
-    // false
     for (int i = 0; i < this->matrixOrder; i++){
-        dist[i] = INT_MAX;
-        sptSet[i] = false;
+        dist->insert(INT_MAX);
+        sptSet->insert(false);
+        this->previousNode->changeValue(i, -1);
     }
 
     // Distance of source vertex from itself is always 0
-    dist[src] = 0;
+    dist->changeValue(src, 0);
 
-    // Find shortest path for all vertices
-    for (int count = 0; count < this->matrixOrder; ++count) {
-        std::cout << "---------------------------------------------------------------------------------------------\n";
-        // Pick the vertex with the minimum distance value
+    for (int counter = 0; counter < this->matrixOrder; ++counter) {
         int u = minDistance(dist, sptSet);
 
-        // **Point 3**: Ensure `dist[u] != INT_MAX`
-        std::cout << "Current distance of node " << u << ": " << dist[u] << std::endl;
-
-        // If `dist[u]` is still `INT_MAX`, that means no valid path exists to this node,
-        // so further processing might not make sense.
-        if (dist[u] == INT_MAX) {
-            std::cout << "Node " << u << " is unreachable from the source node." << std::endl;
+        if (dist->getValue(u) == INT_MAX) {
             break;
         }
 
-        // Mark the picked vertex as processed
-        sptSet[u] = true;
+        sptSet->changeValue(u, true);
 
-        // Traverse adjacent nodes and update their distances
         for (int v = 0; v < this->matrixOrder; v++) {
-            int weight = this->getNodeWeight(u, v);  // Get the weight between u and v
-            std::cout << weight << "-------------------\n";
-            // **Point 1**: Check if nodes are marked as processed too early
-            std::cout << "sptSet for node " << v << ": " << sptSet[v] << std::endl;
+            int weight = this->getNodeWeight(u, v);
 
-            // Only update if:
-            // 1. The vertex is not yet processed
-            // 2. There is an edge between u and v (weight > 0)
-            // 3. The total weight from src to v through u is smaller than the current dist[v]
-            if (!sptSet[v] && weight > 0 && dist[u] != INT_MAX && dist[u] + weight < dist[v]) {
-                std::cout << "Updating distance of node " << v << " from " << dist[v]
-                          << " to " << dist[u] + weight << std::endl;
-                dist[v] = dist[u] + weight;
-            } else {
-                std::cout << "No update for node " << v << " (dist[u]: " << dist[u]
-                          << ", weight: " << weight
-                          << ", dist[v]: " << dist[v] << ")" << std::endl;
+            if (!sptSet->getValue(v) && weight > 0 && dist->getValue(u) != INT_MAX && dist->getValue(u) + weight < dist->getValue(v)) {
+                dist->changeValue(v, dist->getValue(u) + weight);
+                this->previousNode->changeValue(v, u);
             }
         }
-        std::cout << "--------------------------------------"<< count<<"\n";
     }
 
+    // previousNode->print();
 
-
-    // print the constructed distance array
-    //printSolution(dist);
+    std::cout << "Vertex\t Distance from Source\t Path" << std::endl;
+    for (int i = 0; i < this->matrixOrder; i++) {
+        std::cout << i << "\t\t" << dist->getValue(i) << "\t\t";
+        printPath(i, previousNode);
+        std::cout << std::endl;
+    }
 }
+
+template<typename T>
+void AdjacencyMatrix<T>::printPath(int currentNode, SinglyLinkedList<int>* previousNode) {
+    if (currentNode == -1)
+        return;  // Base case: no previousNode
+    printPath(previousNode->getValue(currentNode), previousNode);  // Recursively print the path
+    std::cout << currentNode << " ";
+}
+
+template<typename T>
+SinglyLinkedList<int>* AdjacencyMatrix<T>::getPathTo(int nodeIndex, SinglyLinkedList<int>* list) {
+    if (nodeIndex == -1) {
+        return list;  // Base case: no previousNode
+    }
+    list->insert(nodeIndex);
+    getPathTo(this->previousNode->getValue(nodeIndex), list);
+}
+
+
 /*// template<typename T>
 // SinglyLinkedList<pairNode> AdjacencyMatrix<T>::dijkstra(int src)
 // {
@@ -285,7 +267,7 @@ AdjacencyMatrix<T>::AdjacencyMatrix(int n, int m) {
 
     Node* currentRowStart = this->head;
     Node* previousRowNextColumn = this->head->right;
-    for (int i = 1; i <= matrixOrder; ++i) {
+    for (int i = 1; i < matrixOrder; ++i) {
         Node* newNode = new Node(index++);
         currentRowStart->down = newNode;
         currentRowStart = currentRowStart->down;
@@ -300,11 +282,15 @@ AdjacencyMatrix<T>::AdjacencyMatrix(int n, int m) {
         }
         previousRowNextColumn = currentRowStart->right;
     }
+
+    for (int i = 0; i < this->matrixOrder; i++){
+        this->previousNode->insert(-1);
+    }
 }
 
 template<typename T>
 void AdjacencyMatrix<T>::printAdjMatrix() {
-    Node* currentRowStart = this->head->down;
+    Node* currentRowStart = this->head;
     while (currentRowStart != nullptr) {
         Node* currentColumn = currentRowStart;
         while (currentColumn != nullptr) {
@@ -347,20 +333,18 @@ template<typename T>
 void AdjacencyMatrix<T>::addEdges()
 {
     Node* currentRowStart = this->head;
-    for (int i = 1; i < matrixOrder+2; ++i) {
-        Node* currentColumn = currentRowStart;
-        for (int j = 1; j < matrixOrder+1; ++j) {
-            if (((i+1) == j&& j%gridColumns!=0) || ((i-1) == j && i%gridColumns!=0)) {
-                currentColumn->weight = 1;
+    for (int i = 1; i <= matrixOrder; ++i) {
+        Node* currentNode = currentRowStart;
+        for (int j = 1; j <= matrixOrder; ++j) {
+
+            if ((i+1==j && j%gridColumns != 1)|| (i-1==j && j%gridColumns != 0)) {
+                currentNode->weight = 1;
             }
             if (i+gridColumns == j || (i-gridColumns) == j) {
-                currentColumn->weight = 1;
+                currentNode->weight = 1;
             }
-            // std::cout << currentColumn->weight << " ";
-            //currentColumn->weight = 1;
-            currentColumn = currentColumn->right;
+            currentNode = currentNode->right;
         }
-        // std::cout << "\n";
         currentRowStart = currentRowStart->down;
     }
 }
@@ -382,7 +366,7 @@ void AdjacencyMatrix<T>::placeObstacles() {
     while (LinkedLhead != nullptr) {
         Node* currentRowElem = this->head;
         Node* currentColumnElem = this->head;
-        for (int i = 0; i < LinkedLhead->data; ++i) {
+        for (int i = 0; i <= LinkedLhead->data; ++i) {
             currentRowElem = currentRowElem->down;
             currentColumnElem = currentColumnElem->right;
         }
