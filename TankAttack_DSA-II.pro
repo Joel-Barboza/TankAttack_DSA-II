@@ -39,7 +39,14 @@ SOURCES += src/main.cpp \
            src/tank.cpp \
            src/bullet.cpp
 
+
 FORMS += ui/mainwindow.ui
+
+RESOURCES += images/red_tank.png \
+             images/blue_tank.png \
+             images/yellow_tank.png \
+             images/lightblue_tank.png
+
 
 
 # Default rules for deployment.

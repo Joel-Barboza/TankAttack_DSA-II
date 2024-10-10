@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
     //gameState->adjMatrix->printAdjMatrix();
     QApplication a(argc, argv);
-    MainWindow mainWindow(nullptr, gameState); //  rows, columns, graph
+    MainWindow mainWindow(nullptr);
     mainWindow.setFixedSize(1200, 800);
     mainWindow.show();
     return a.exec();

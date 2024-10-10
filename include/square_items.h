@@ -6,6 +6,7 @@
 #include <QPen>
 #include <QGraphicsSceneHoverEvent>
 #include <include/game_state.h>
+#include <include/mainwindow.h>
 
 class SquareItem : public QGraphicsRectItem {
 public:
@@ -16,7 +17,8 @@ public:
         this->setZValue(1);
         setAcceptHoverEvents(true);
         squareId = index;
-
+        // centerX;
+        // centerY;
     }
     int squareId;
 
@@ -25,9 +27,29 @@ public:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override {
         qDebug() << "Square clicked at: " << squareId << "\n";
-        GameState::adjMatrix->dijkstra(squareId);/*
-        SinglyLinkedList<int>* sf = GameState::adjMatrix->printPath(0, new SinglyLinkedList<int>);
-        sf->print();*/
+        if (GameState::pair->getSize() == 2 && !GameState::adjMatrix->getIsOccupied(squareId)) {
+            GameState::pair->getHead()->data->setBrush(QColor("#B4C8C8"));
+            GameState::pair->getHead()->next->data->setBrush(QColor("#B4C8C8"));
+            GameState::removeDrawnPath();
+        }
+        GameState::startEndNodePair(this, squareId);
+        if (GameState::pair->getSize() == 1 && !GameState::adjMatrix->getIsOccupied(squareId)) {
+            // GameState::removeDrawnPath();
+            this->setBrush(QColor("#339033"));
+        } else if (GameState::pair->getSize() == 2 && !GameState::adjMatrix->getIsOccupied(squareId)) {
+            // GameState::removeDrawnPath();
+            GameState::adjMatrix->dijkstra(GameState::pair->getHead()->data->squareId);
+            SinglyLinkedList<int>* path = GameState::adjMatrix->getPathTo(squareId);
+            path->print();
+
+            int startPointX = GameState::pair->getHead()->data->boundingRect().center().rx();
+            int startPointY = GameState::pair->getHead()->data->boundingRect().center().ry();
+
+            MainWindow::map->drawPath(path, startPointX, startPointY);
+
+
+            this->setBrush(QColor("#903333"));
+        }
         QGraphicsRectItem::mousePressEvent(event);
     }
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override {

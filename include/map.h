@@ -6,17 +6,18 @@
 #include <QGridLayout>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <include/game_state.h>
 
 class Map : public QGraphicsScene {
     Q_OBJECT
 
 public:
-    explicit Map(QWidget *parent = nullptr, GameState* gameState = nullptr);
+    explicit Map(QWidget *parent = nullptr);
+    void drawPath(SinglyLinkedList<int>* list, int startX, int startY);
 
 private:
     // QGridLayout *gridLayout;
     void createGrid(int numRows, int numCols, AdjacencyMatrix<int>* adjMatrix);  // Helper function to create the grid
+    QGraphicsLineItem* createLine(int x1, int y1, int x2, int y2);
 };
 
 

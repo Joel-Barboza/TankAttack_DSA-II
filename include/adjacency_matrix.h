@@ -46,7 +46,9 @@ public:
     // Saves the index of the previous graph node, path is gotten by recursively checking the previous node until source (-1) is reached
     SinglyLinkedList<int>* previousNode = new SinglyLinkedList<int>();
 
-    SinglyLinkedList<int>* getPathTo(int nodeIndex, SinglyLinkedList<int>* list);
+    SinglyLinkedList<int>* getPathTo(int nodeIndex);
+
+    bool getIsOccupied(int nodeIndex);
 private:
     struct Node {
         int weight;
@@ -94,13 +96,13 @@ int AdjacencyMatrix<T>::minDistance(SinglyLinkedList<int>* dist, SinglyLinkedLis
 
 template<typename T>
 void AdjacencyMatrix<T>::dijkstra(int src){
-    const int  INT_MAX = std::numeric_limits<int>::max();
+    const int  MAX_INT_VALUE = std::numeric_limits<int>::max();
     SinglyLinkedList<int>* dist = new SinglyLinkedList<int>();
     SinglyLinkedList<bool>* sptSet = new SinglyLinkedList<bool>();
 
 
     for (int i = 0; i < this->matrixOrder; i++){
-        dist->insert(INT_MAX);
+        dist->insert(MAX_INT_VALUE);
         sptSet->insert(false);
         this->previousNode->changeValue(i, -1);
     }
@@ -111,7 +113,7 @@ void AdjacencyMatrix<T>::dijkstra(int src){
     for (int counter = 0; counter < this->matrixOrder; ++counter) {
         int u = minDistance(dist, sptSet);
 
-        if (dist->getValue(u) == INT_MAX) {
+        if (dist->getValue(u) == MAX_INT_VALUE) {
             break;
         }
 
@@ -120,7 +122,7 @@ void AdjacencyMatrix<T>::dijkstra(int src){
         for (int v = 0; v < this->matrixOrder; v++) {
             int weight = this->getNodeWeight(u, v);
 
-            if (!sptSet->getValue(v) && weight > 0 && dist->getValue(u) != INT_MAX && dist->getValue(u) + weight < dist->getValue(v)) {
+            if (!sptSet->getValue(v) && weight > 0 && dist->getValue(u) != MAX_INT_VALUE && dist->getValue(u) + weight < dist->getValue(v)) {
                 dist->changeValue(v, dist->getValue(u) + weight);
                 this->previousNode->changeValue(v, u);
             }
@@ -129,12 +131,12 @@ void AdjacencyMatrix<T>::dijkstra(int src){
 
     // previousNode->print();
 
-    std::cout << "Vertex\t Distance from Source\t Path" << std::endl;
-    for (int i = 0; i < this->matrixOrder; i++) {
-        std::cout << i << "\t\t" << dist->getValue(i) << "\t\t";
-        printPath(i, previousNode);
-        std::cout << std::endl;
-    }
+    // std::cout << "Vertex\t Distance from Source\t Path" << std::endl;
+    // for (int i = 0; i < this->matrixOrder; i++) {
+    //     std::cout << i << "\t\t" << dist->getValue(i) << "\t\t";
+    //     printPath(i, previousNode);
+    //     std::cout << std::endl;
+    // }
 }
 
 template<typename T>
@@ -146,13 +148,27 @@ void AdjacencyMatrix<T>::printPath(int currentNode, SinglyLinkedList<int>* previ
 }
 
 template<typename T>
-SinglyLinkedList<int>* AdjacencyMatrix<T>::getPathTo(int nodeIndex, SinglyLinkedList<int>* list) {
-    if (nodeIndex == -1) {
-        return list;  // Base case: no previousNode
+SinglyLinkedList<int>* AdjacencyMatrix<T>::getPathTo(int nodeIndex) {
+    SinglyLinkedList<int>* list = new SinglyLinkedList<int>();
+    auto* current = this->previousNode->getHead();
+    for (int i = 0; i < nodeIndex; ++i) {
+        current = current->next;
     }
-    list->insert(nodeIndex);
-    getPathTo(this->previousNode->getValue(nodeIndex), list);
+    int index = nodeIndex;
+    while (this->previousNode->getValue(index) != -1) {
+        list->insertFirst(index);
+        index = this->previousNode->getValue(index);
+    }
+    list->insertFirst(index);
+    return list;
+    // if (nodeIndex == -1) {
+    //     return list;  // Base case: no previousNode
+    // }
+    // list->insert(nodeIndex);
+    // getPathTo(this->previousNode->getValue(nodeIndex), list);
 }
+
+
 
 
 /*// template<typename T>
@@ -406,6 +422,24 @@ int AdjacencyMatrix<T>::getNodeWeight(int row, int column) {
         current = current->right;
     }
     return current->weight;
+}
+
+template<typename T>
+bool AdjacencyMatrix<T>::getIsOccupied(int nodeIndex) {
+    Node* current = this->head;
+    // Move down to the correct row
+    for (int i = 0; i < nodeIndex/this->matrixOrder; ++i) {
+        //if (current == nullptr) return 0;  // Out of bounds, return 0 (no edge)
+        current = current->down;
+    }
+
+    // Move right to the correct column
+    for (int j = 0; j < nodeIndex%this->matrixOrder; ++j) {
+        //if (current == nullptr) return 0;  // Out of bounds, return 0 (no edge)
+
+        current = current->right;
+    }
+    return current->isOccupied;
 }
 
 #endif // ADJACENCY_MATRIX_H
