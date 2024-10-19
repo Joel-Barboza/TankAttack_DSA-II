@@ -138,6 +138,7 @@ void Map::moveTank(SinglyLinkedList<DataPair<QPoint, QPoint>*>* pointList){
             tank->setGridPosition(GameState::pair->getSecond()->squareId/GameState::columns, GameState::pair->getSecond()->squareId%GameState::columns);
             GameState::adjMatrix->setOccupiedByTank(tank->getNodeIndexPos());
             GameState::pathLinesList->clear();
+            GameState::pair->getSecond()->setBrush(QColor("#B4C8C8"));
 
         }
 
