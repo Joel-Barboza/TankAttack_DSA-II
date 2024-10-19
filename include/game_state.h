@@ -4,9 +4,10 @@
 #include "include/adjacency_matrix.h"
 #include "QGraphicsLineItem"
 #include <include/mainwindow.h>
+#include <include/tank.h>
+#include <include/data_pair.h>
 class SquareItem;
 class Map;
-class Tank;
 
 class GameState{
 
@@ -17,11 +18,14 @@ public:
     static int columns;//24
     static AdjacencyMatrix<int>* adjMatrix;
     static void startEndNodePair(SquareItem* square, int squareId);
-    static SinglyLinkedList<SquareItem*>* pair;
+    static DataPair<Tank*, SquareItem*>* pair;
+    //static SinglyLinkedList<SquareItem*>* pair;
     static SinglyLinkedList<QGraphicsLineItem*>* pathLinesList;
     static void removeDrawnPath();
     static SinglyLinkedList<Tank*>* player1TankList;
     static SinglyLinkedList<Tank*>* player2TankList;
+    static void selectTank(Tank *square, int squareId);
+    static void selectEndPoint(SquareItem *square, int squareId);
 private:
     void initializeTanks();
 

@@ -4,8 +4,9 @@
 #include "limits"
 #include "iostream"
 #include "include/singly_linked_list.h"
-// #include "include/paired_priority_queue.h"
-#include "include/struct_int_data_pair.h"
+#include "include/tank.h"
+
+
 
 template<typename T>
 class AdjacencyMatrix
@@ -23,23 +24,17 @@ public:
 
     void printAdjMatrix();
 
-    void setOccupied(int i, int j);
+    void setOccupiedByTank(int nodeIndex);
 
-    // void setFree(int i, int j);
+    void setFreeOfTanks(int nodeIndex);
 
-    void placeObstacles();
-
-    //SinglyLinkedList<int*>* getList();
+    void placeObstacles(SinglyLinkedList<Tank*>* player1TankList, SinglyLinkedList<Tank*>* player2TankList);
 
     auto* getHead();
 
     void dijkstra(int src);
 
-    pairNode* findPairInList(SinglyLinkedList<pairNode>& list, int nodeIndex);
-
     int getNodeWeight(int row, int column);
-
-    void printDistances(SinglyLinkedList<pairNode> &distances);
 
     int minDistance(SinglyLinkedList<int>* dist, SinglyLinkedList<bool>* sptSet);
     void printPath(int currentNode, SinglyLinkedList<int>*);
@@ -48,16 +43,19 @@ public:
 
     SinglyLinkedList<int>* getPathTo(int nodeIndex);
 
-    bool getIsOccupied(int nodeIndex);
+    bool getIsUnreachable(int nodeIndex);
+
+    bool getHasTank();
 private:
     struct Node {
         int weight;
         Node* right;
         Node* down;
-        bool isOccupied;
+        bool isUnreachable;
+        bool isTank;
         int index;
         //std::numeric_limits<int>::max()
-        Node(int indx) : weight(0), right(nullptr), down(nullptr), isOccupied(false), index(indx)  {}
+        Node(int indx) : weight(0), right(nullptr), down(nullptr), isUnreachable(false), index(indx)  {}
     };
 
     Node* head = nullptr;
@@ -66,10 +64,50 @@ private:
     int gridRows = 0;
     int gridColumns = 0;
     int numOfNodes = 0;
-    //SinglyLinkedList<Node*>* list = new SinglyLinkedList<int*>();
-    //pairNode d = new pairNode();
 
 };
+
+template<typename T>
+AdjacencyMatrix<T>::AdjacencyMatrix(int n, int m) {
+    if (n <= 0 || m <= 0) {
+        std::cerr << "Invalid matrix dimensions!" << std::endl;
+        return;
+    }
+    int index = 0;
+    this->head = new Node(index++);
+    this->gridRows = n;
+    this->gridColumns = m;
+    this->matrixOrder = n * m;
+
+    Node* currentColumn = this->head;
+    for (int i = 1; i < matrixOrder; ++i) {
+        Node* newRight = new Node(index++);
+        currentColumn->right = newRight;
+        currentColumn = currentColumn->right;
+    }
+
+    Node* currentRowStart = this->head;
+    Node* previousRowNextColumn = this->head->right;
+    for (int i = 1; i < matrixOrder; ++i) {
+        Node* newNode = new Node(index++);
+        currentRowStart->down = newNode;
+        currentRowStart = currentRowStart->down;
+        currentColumn = currentRowStart;
+        while (previousRowNextColumn != nullptr) {
+            Node* newNode = new Node(index++);
+            previousRowNextColumn->down = newNode;
+            currentColumn->right = newNode;
+            currentColumn = currentColumn->right;
+            previousRowNextColumn = previousRowNextColumn->right;
+
+        }
+        previousRowNextColumn = currentRowStart->right;
+    }
+
+    for (int i = 0; i < this->matrixOrder; i++){
+        this->previousNode->insert(-1);
+    }
+}
 
 template<typename T>
 auto* AdjacencyMatrix<T>::getHead(){
@@ -129,14 +167,6 @@ void AdjacencyMatrix<T>::dijkstra(int src){
         }
     }
 
-    // previousNode->print();
-
-    // std::cout << "Vertex\t Distance from Source\t Path" << std::endl;
-    // for (int i = 0; i < this->matrixOrder; i++) {
-    //     std::cout << i << "\t\t" << dist->getValue(i) << "\t\t";
-    //     printPath(i, previousNode);
-    //     std::cout << std::endl;
-    // }
 }
 
 template<typename T>
@@ -161,148 +191,10 @@ SinglyLinkedList<int>* AdjacencyMatrix<T>::getPathTo(int nodeIndex) {
     }
     list->insertFirst(index);
     return list;
-    // if (nodeIndex == -1) {
-    //     return list;  // Base case: no previousNode
-    // }
-    // list->insert(nodeIndex);
-    // getPathTo(this->previousNode->getValue(nodeIndex), list);
 }
 
 
 
-
-/*// template<typename T>
-// SinglyLinkedList<pairNode> AdjacencyMatrix<T>::dijkstra(int src)
-// {
-//     // Step 1: Create a SinglyLinkedList for distances initialized to infinity
-//     SinglyLinkedList<pairNode> distances;
-//     PairedPriorityQueue unvisitedNodes;
-
-//     // Step 2: Initialize distances and the priority queue
-//     for (int i = 0; i < matrixOrder; ++i) {
-//         if (i == src) {
-//             distances.insert(pairNode(0, i));  // Distance to source is 0
-//             unvisitedNodes.enqueue(pairNode(0, i));  // Enqueue source
-//         } else {
-//             distances.insert(pairNode(std::numeric_limits<int>::max(), i));  // All other nodes are infinity
-//         }
-//     }
-
-//     // Step 3: Main loop - process each node
-//     while (unvisitedNodes.size > 0) {
-//         auto* currentPair = unvisitedNodes.getFront();  // Get the node with the smallest distance
-//         //unvisitedNodes.dequeue();  // Remove it from the queue
-
-//         unvisitedNodes.printQueue();
-
-//         printDistances(distances);
-
-//         // Retrieve the node in the adjacency matrix
-//         Node* currentNode = getNthNode(currentPair->nodeNum);
-
-//         // Traverse neighbors (right and down in the matrix)
-//         Node* neighbor = currentNode->right;
-//         int neighborIndex = currentPair->nodeNum + 1;  // Neighbor index (to the right)
-//         while (neighbor != nullptr) {
-//             int weight = neighbor->weight;
-//             std::cout << "Processing neighbor: " << neighborIndex << ", weight: " << weight << "\n";
-
-//             if (weight > 0) {  // Valid edge
-//                 pairNode* neighborDistancePair = findPairInList(distances, neighborIndex);
-//                 int newDist = currentPair->distance + weight;
-
-//                 // Debug: Print distance comparison
-//                 std::cout << "Checking neighbor " << neighborIndex
-//                           << ": Current Distance: " << neighborDistancePair->distance
-//                           << ", New Distance: " << newDist << "\n";
-
-//                 // If the new distance is shorter, update the distance and enqueue the neighbor
-//                 if (newDist < neighborDistancePair->distance) {
-//                     // Update distance in the list
-//                     neighborDistancePair->distance = newDist;
-//                     std::cout << "siuuuu" << "\n";
-
-//                     // Enqueue the neighbor with the new distance
-//                     unvisitedNodes.enqueue(pairNode(newDist, neighborIndex));
-//                     unvisitedNodes.printQueue();
-//                 }
-//             }
-//             neighbor = neighbor->right;  // Move to the next neighbor
-//             neighborIndex++;
-//         }
-//     }
-
-//     return distances;  // Return the list of shortest distances
-// }
-
-// template<typename T>
-// void AdjacencyMatrix<T>::printDistances(SinglyLinkedList<pairNode>& distances) {
-//     auto* current = distances.getHead();
-//     std::cout << "Current distances:\n";
-//     while (current != nullptr) {
-//         std::cout << "Node: " << current->data.nodeIndex << ", Distance: " << current->data.distance << "\n";
-//         current = current->next;
-//     }
-// }*/
-
-template<typename T>
-pairNode* AdjacencyMatrix<T>::findPairInList(SinglyLinkedList<pairNode>& list, int nodeIndex) {
-    auto* current = list.getHead();
-    while (current != nullptr) {
-        if (current->data.nodeIndex == nodeIndex) {
-            return &current->data;
-        }
-        current = current->next;
-    }
-    return nullptr;  // Node not found
-}
-
-// bool getNodeWithLowestDistance(unvisitedNodes) {
-
-// }
-
-
-template<typename T>
-AdjacencyMatrix<T>::AdjacencyMatrix(int n, int m) {
-    if (n <= 0 || m <= 0) {
-        std::cerr << "Invalid matrix dimensions!" << std::endl;
-        return;
-    }
-    int index = 0;
-    this->head = new Node(index++);
-    this->gridRows = n;
-    this->gridColumns = m;
-    this->matrixOrder = n * m;
-
-    Node* currentColumn = this->head;
-    for (int i = 1; i < matrixOrder; ++i) {
-        Node* newRight = new Node(index++);
-        currentColumn->right = newRight;
-        currentColumn = currentColumn->right;
-    }
-
-    Node* currentRowStart = this->head;
-    Node* previousRowNextColumn = this->head->right;
-    for (int i = 1; i < matrixOrder; ++i) {
-        Node* newNode = new Node(index++);
-        currentRowStart->down = newNode;
-        currentRowStart = currentRowStart->down;
-        currentColumn = currentRowStart;
-        while (previousRowNextColumn != nullptr) {
-            Node* newNode = new Node(index++);
-            previousRowNextColumn->down = newNode;
-            currentColumn->right = newNode;
-            currentColumn = currentColumn->right;
-            previousRowNextColumn = previousRowNextColumn->right;
-
-        }
-        previousRowNextColumn = currentRowStart->right;
-    }
-
-    for (int i = 0; i < this->matrixOrder; i++){
-        this->previousNode->insert(-1);
-    }
-}
 
 template<typename T>
 void AdjacencyMatrix<T>::printAdjMatrix() {
@@ -319,13 +211,53 @@ void AdjacencyMatrix<T>::printAdjMatrix() {
 }
 
 template<typename T>
+void AdjacencyMatrix<T>::setOccupiedByTank(int nodeIndex)
+{
+    Node* currentRowElem = this->head;
+    Node* currentColumnElem = this->head;
+    for (int i = 0; i < nodeIndex; ++i) {
+        currentRowElem = currentRowElem->down;
+        currentColumnElem = currentColumnElem->right;
+    }
+    while (currentRowElem != nullptr) {
+        currentRowElem->isTank = true;
+        currentColumnElem->isTank = true;
+        currentColumnElem->weight = 0;
+        currentRowElem->isUnreachable = true;
+        currentColumnElem->isUnreachable = true;
+        currentRowElem = currentRowElem->right;
+        currentColumnElem = currentColumnElem->down;
+    }
+}
+
+template<typename T>
+void AdjacencyMatrix<T>::setFreeOfTanks(int nodeIndex)
+{
+    Node* currentRowElem = this->head;
+    Node* currentColumnElem = this->head;
+    for (int i = 0; i < nodeIndex; ++i) {
+        currentRowElem = currentRowElem->down;
+        currentColumnElem = currentColumnElem->right;
+    }
+    while (currentRowElem != nullptr) {
+        currentRowElem->isTank = false;
+        currentColumnElem->isTank = false;
+        currentColumnElem->weight = currentRowElem->weight;
+        currentRowElem->isUnreachable = false;
+        currentColumnElem->isUnreachable = false;
+        currentRowElem = currentRowElem->right;
+        currentColumnElem = currentColumnElem->down;
+    }
+}
+
+template<typename T>
 void AdjacencyMatrix<T>::resetAllWeigths() {
     Node* currentRowStart = this->head->down;
     while (currentRowStart != nullptr) {
         Node* currentColumn = currentRowStart;
         while (currentColumn != nullptr) {
             currentColumn->weight = 0;//std::numeric_limits<int>::max();
-            currentColumn->isOccupied = false;
+            currentColumn->isUnreachable = false;
             currentColumn = currentColumn->right;
         }
         currentRowStart = currentRowStart->down;
@@ -366,11 +298,21 @@ void AdjacencyMatrix<T>::addEdges()
 }
 
 template<typename T>
-void AdjacencyMatrix<T>::placeObstacles() {
+void AdjacencyMatrix<T>::placeObstacles(SinglyLinkedList<Tank*>* player1TankList, SinglyLinkedList<Tank*>* player2TankList) {
     int matrixOrder = this->matrixOrder;
     SinglyLinkedList<int>* occupiedCells = new SinglyLinkedList<T>();
+    auto* p1Current = player1TankList->getHead();
+    auto* p2Current = player2TankList->getHead();
+
+    while (p1Current != nullptr) {
+        occupiedCells->insert(p1Current->data->getNodeIndexPos());
+        occupiedCells->insert(p2Current->data->getNodeIndexPos());
+        p1Current = p1Current->next;
+        p2Current = p2Current->next;
+    }
+
     srand(time(0));
-    for (int i = 1; i <= this->matrixOrder/10; ++i) {
+    for (int i = 0; i <= this->matrixOrder/10; ++i) {
         int toPlaceObst = rand()%matrixOrder + 1;
         while (occupiedCells->find(toPlaceObst)) {
             toPlaceObst = rand()%matrixOrder + 1;
@@ -379,29 +321,34 @@ void AdjacencyMatrix<T>::placeObstacles() {
     }
 
     auto* LinkedLhead = occupiedCells->getHead();
+    int counter = 0;
     while (LinkedLhead != nullptr) {
         Node* currentRowElem = this->head;
         Node* currentColumnElem = this->head;
-        for (int i = 0; i <= LinkedLhead->data; ++i) {
+        for (int i = 0; i < LinkedLhead->data; ++i) {
             currentRowElem = currentRowElem->down;
             currentColumnElem = currentColumnElem->right;
         }
         while (currentRowElem != nullptr) {
-            currentRowElem->isOccupied = true;
-            currentRowElem->weight = 0;
-            currentColumnElem->isOccupied = true;
-            currentColumnElem->weight = 0;
+            if (counter < 8) {
+                currentRowElem->isTank = true;
+                currentColumnElem->isTank = true;
+                currentColumnElem->weight = 0;
+            } else {
+                currentRowElem->weight = 0;
+                currentColumnElem->weight = 0;
+
+            }
+            currentRowElem->isUnreachable = true;
+            currentColumnElem->isUnreachable = true;
             currentRowElem = currentRowElem->right;
             currentColumnElem = currentColumnElem->down;
         }
+        ++counter;
         LinkedLhead = LinkedLhead->next;
     }
 }
 
-// template<typename T>
-// SinglyLinkedList<int*>* AdjacencyMatrix<T>::getList() {
-//     return this->list;
-// }
 
 
 
@@ -409,37 +356,26 @@ void AdjacencyMatrix<T>::placeObstacles() {
 template<typename T>
 int AdjacencyMatrix<T>::getNodeWeight(int row, int column) {
     Node* current = this->head;
-    // Move down to the correct row
     for (int i = 0; i < row; ++i) {
-        //if (current == nullptr) return 0;  // Out of bounds, return 0 (no edge)
         current = current->down;
     }
 
-    // Move right to the correct column
     for (int j = 0; j < column; ++j) {
-        //if (current == nullptr) return 0;  // Out of bounds, return 0 (no edge)
-
         current = current->right;
     }
     return current->weight;
 }
 
 template<typename T>
-bool AdjacencyMatrix<T>::getIsOccupied(int nodeIndex) {
+bool AdjacencyMatrix<T>::getIsUnreachable(int nodeIndex) {
     Node* current = this->head;
-    // Move down to the correct row
     for (int i = 0; i < nodeIndex/this->matrixOrder; ++i) {
-        //if (current == nullptr) return 0;  // Out of bounds, return 0 (no edge)
         current = current->down;
     }
-
-    // Move right to the correct column
     for (int j = 0; j < nodeIndex%this->matrixOrder; ++j) {
-        //if (current == nullptr) return 0;  // Out of bounds, return 0 (no edge)
-
         current = current->right;
     }
-    return current->isOccupied;
+    return current->isUnreachable;
 }
 
 #endif // ADJACENCY_MATRIX_H

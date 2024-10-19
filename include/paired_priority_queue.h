@@ -2,7 +2,7 @@
 #define PAIRED_PRIORITY_QUEUE_H
 
 #include <iostream>
-#include <include/struct_int_data_pair.h>
+#include <include/data_pair.h>
 
 class PairedPriorityQueue {
 public:

@@ -21,13 +21,13 @@ CONFIG += c++17
 
 HEADERS += include/mainwindow.h \
            include/adjacency_matrix.h \
+           include/data_pair.h \
            include/game_state.h \
            include/map.h \
            include/paired_priority_queue.h \
            include/player_data.h \
            include/singly_linked_list.h \
            include/square_items.h \
-           include/struct_int_data_pair.h \
            include/tank.h \
            include/bullet.h
 
@@ -36,6 +36,7 @@ SOURCES += src/main.cpp \
            src/game_state.cpp \
            src/mainwindow.cpp \
            src/map.cpp \
+           src/square_items.cpp \
            src/tank.cpp \
            src/bullet.cpp
 

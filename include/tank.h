@@ -4,6 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <include/map.h>
 #include <QDir>
+#include <QGraphicsSceneMouseEvent>
 
 
 class Tank: public QGraphicsPixmapItem {
@@ -15,31 +16,33 @@ public:
         LightBlueTank
     };
 
-    Tank(TankType type, Map* parent) : QGraphicsPixmapItem(nullptr) {
-        switch (type) {
-        case RedTank:
-            setPixmap(QPixmap("../../images/red_tank.png").scaled(50, 50, Qt::KeepAspectRatio));
-            break;
-        case BlueTank:
-            setPixmap(QPixmap("../../images/blue_tank.png").scaled(50, 50, Qt::KeepAspectRatio));
-            break;
-        case YellowTank:
-            setPixmap(QPixmap("../../images/yellow_tank.png").scaled(50, 50, Qt::KeepAspectRatio));
-            break;
-        case LightBlueTank:
-            setPixmap(QPixmap("../../images/yellow_tank.png").scaled(50, 50, Qt::KeepAspectRatio));
-            break;
-        }
+    Tank(TankType type, Map* parent);
 
-        setZValue(100);
+    int getHealth();
+    TankType getTankType();
+    int getNodeIndexPos();
+    void setNodeIndexPos(int nodeIndex);
+    int getTopLeftX();
+    void setTopLeftX(int xCoord);
+    int getTopLeftY();
+    void setTopLeftY(int yCoord);
+    void setGridPosition(int row, int column);
 
-    }
-
-    int getHealth() const { return health; }
-
+    void rotateNorth();
+    void rotateSouth();
+    void rotateEast();
+    void rotateWest();
+    void setCenteredPos(int x, int y);
 private:
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     int health = 100;
+    TankType tankType;
+    int nodeIndexPos;
+    int topLeftX;
+    int topLeftY;
 
 };
+
+
 
 #endif // TANK_H

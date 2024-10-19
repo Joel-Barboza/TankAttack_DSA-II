@@ -6,10 +6,10 @@
 int main(int argc, char *argv[])
 {
 
-    GameState* gameState = new GameState();
 
     //gameState->adjMatrix->printAdjMatrix();
     QApplication a(argc, argv);
+    GameState* gameState = new GameState();
     MainWindow mainWindow(nullptr);
     mainWindow.setFixedSize(1200, 800);
     mainWindow.show();

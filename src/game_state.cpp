@@ -4,8 +4,8 @@ GameState::GameState()
 {
 
     adjMatrix->addEdges();
-    adjMatrix->placeObstacles();
-    //initializeTanks();
+    initializeTanks();
+    adjMatrix->placeObstacles(player1TankList, player2TankList);
     std::cout << "\nRunning Dijkstra's algorithm from node 0..." << std::endl;
     adjMatrix->dijkstra(0);
 
@@ -17,7 +17,8 @@ int GameState::columns = 24;
 // int GameState::rows = 3;
 // int GameState::columns = 4;
 
-SinglyLinkedList<SquareItem*>* GameState::pair = new SinglyLinkedList<SquareItem*>();
+DataPair<Tank*, SquareItem*>* GameState::pair = new DataPair<Tank*, SquareItem*>();
+// SinglyLinkedList<SquareItem*>* GameState::pair = new SinglyLinkedList<SquareItem*>();
 
 AdjacencyMatrix<int>* GameState::adjMatrix  = new AdjacencyMatrix<int>(rows,columns);
 
@@ -41,17 +42,71 @@ void GameState::removeDrawnPath() {
 
 void GameState::startEndNodePair(SquareItem* square, int squareId) {
 
-    if (!adjMatrix->getIsOccupied(squareId)){
-        if (pair->getSize() == 2) {
-            pair->clear();
-        }
-        pair->insert(square);
+    if (adjMatrix->getIsUnreachable(squareId)) return;
 
+    if (pair->getFirst() != nullptr && pair->getSecond() != nullptr) {
+        pair->clear();
     }
+    // if () {
+    // }
+    //     pair->insert(square);
 
+}
+
+void GameState::selectTank(Tank* tank, int squareId) {
+    if (tank != pair->getFirst()){
+        pair->setFirst(tank);
+    }
+}
+
+void GameState::selectEndPoint(SquareItem* square, int squareId) {
+    if (pair->getFirst() == nullptr) return;
+
+    if (square != pair->getSecond()){
+        pair->setSecond(square);
+    }
 }
 
 void GameState::initializeTanks() {
 
-    // player1TankList->insert(new Tank(Tank::YellowTank, MainWindow::map));
+    //--------------------------------------
+    //           Player 1
+    //--------------------------------------
+    Tank* frontLineBlue = new Tank(Tank::BlueTank, MainWindow::map);
+    frontLineBlue->setGridPosition(2, 3);
+    player1TankList->insert(frontLineBlue);
+
+    Tank* backLineRed = new Tank(Tank::RedTank, MainWindow::map);
+    backLineRed->setGridPosition(4, 1);
+    player1TankList->insert(backLineRed);
+
+    Tank* backLineBlue = new Tank(Tank::BlueTank, MainWindow::map);
+    backLineBlue->setGridPosition(9, 1);
+    player1TankList->insert(backLineBlue);
+
+    Tank* frontLineRed = new Tank(Tank::RedTank, MainWindow::map);
+    frontLineRed->setGridPosition(11, 3);
+    player1TankList->insert(frontLineRed);
+
+
+    //--------------------------------------
+    //           Player 2
+    //--------------------------------------
+    Tank* frontLineLightBlue = new Tank(Tank::LightBlueTank, MainWindow::map);
+    frontLineLightBlue->setGridPosition(2, 20);
+    player2TankList->insert(frontLineLightBlue);
+
+    Tank* backLineYellow = new Tank(Tank::YellowTank, MainWindow::map);
+    backLineYellow->setGridPosition(4, 22);
+    player2TankList->insert(backLineYellow);
+
+    Tank* backLineLightBlue = new Tank(Tank::LightBlueTank, MainWindow::map);
+    backLineLightBlue->setGridPosition(9, 22);
+    player2TankList->insert(backLineLightBlue);
+
+    Tank* frontLineYellow = new Tank(Tank::YellowTank, MainWindow::map);
+    frontLineYellow->setGridPosition(11, 20);
+    player2TankList->insert(frontLineYellow);
+
+
 }
