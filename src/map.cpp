@@ -110,20 +110,24 @@ void Map::drawPath(SinglyLinkedList<int>* list, int startX, int startY){
         }
     });
 
-    timer->start(50);
+    timer->start(20);
 };
 
 
 void Map::moveTank(SinglyLinkedList<DataPair<QPoint, QPoint>*>* pointList){
     auto* current = pointList->getHead();
     Tank* tank= GameState::pair->getFirst();
+    auto* pathLinesListNode = GameState::pathLinesList->getHead();
     QTimer* timer2 = new QTimer(this);
 
     connect(timer2, &QTimer::timeout, this, [=]() mutable {
         if (current != nullptr) {
             if (!timer) {
                 moveTankToNeighbor(current->data->getFirst(), current->data->getSecond());
+                delete pathLinesListNode->data;
+
                 current = current->next;
+                pathLinesListNode = pathLinesListNode->next;
             }
 
         } else {
@@ -133,6 +137,7 @@ void Map::moveTank(SinglyLinkedList<DataPair<QPoint, QPoint>*>* pointList){
             GameState::adjMatrix->setFreeOfTanks(tank->getNodeIndexPos());
             tank->setGridPosition(GameState::pair->getSecond()->squareId/GameState::columns, GameState::pair->getSecond()->squareId%GameState::columns);
             GameState::adjMatrix->setOccupiedByTank(tank->getNodeIndexPos());
+            GameState::pathLinesList->clear();
 
         }
 
