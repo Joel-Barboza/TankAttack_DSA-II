@@ -7,7 +7,7 @@ GameState::GameState()
     initializeTanks();
     adjMatrix->placeObstacles(player1TankList, player2TankList);
     std::cout << "\nRunning Dijkstra's algorithm from node 0..." << std::endl;
-    adjMatrix->dijkstra(0);
+    adjMatrix->bfs(0);
 
 }
 

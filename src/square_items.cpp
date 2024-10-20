@@ -34,7 +34,16 @@ void SquareItem::mousePressEvent(QGraphicsSceneMouseEvent* event) {
             setBrush(QColor("#339033"));
         } else if (GameState::pair->getFirst() != nullptr && GameState::pair->getSecond() != nullptr && !GameState::adjMatrix->getIsUnreachable(squareId)) {
             GameState::pair->getFirst()->setGraphicsEffect(nullptr);
-            GameState::adjMatrix->dijkstra(GameState::pair->getFirst()->getNodeIndexPos());
+
+            if (GameState::pair->getFirst()->getTankType() == Tank::BlueTank || GameState::pair->getFirst()->getTankType() == Tank::LightBlueTank) {
+
+                GameState::adjMatrix->bfs(GameState::pair->getFirst()->getNodeIndexPos());
+
+            } else if (GameState::pair->getFirst()->getTankType() == Tank::YellowTank || GameState::pair->getFirst()->getTankType() == Tank::RedTank) {
+
+                GameState::adjMatrix->dijkstra(GameState::pair->getFirst()->getNodeIndexPos());
+
+            }
             SinglyLinkedList<int>* path = GameState::adjMatrix->getPathTo(squareId);
             path->print();
 

@@ -4,6 +4,7 @@
 #include "limits"
 #include "iostream"
 #include "include/singly_linked_list.h"
+#include "include/queue.h"
 #include "include/tank.h"
 
 
@@ -46,6 +47,8 @@ public:
     bool getIsUnreachable(int nodeIndex);
 
     bool getHasTank();
+
+    void bfs(int src);
 private:
     struct Node {
         int weight;
@@ -110,34 +113,10 @@ AdjacencyMatrix<T>::AdjacencyMatrix(int n, int m) {
 }
 
 template<typename T>
-auto* AdjacencyMatrix<T>::getHead(){
-    return this->head;
-}
-
-template<typename T>
-int AdjacencyMatrix<T>::minDistance(SinglyLinkedList<int>* dist, SinglyLinkedList<bool>* sptSet)
-{
-    int min = std::numeric_limits<int>::max();
-    int min_index = -1;
-
-    for (int v = 0; v < this->matrixOrder; v++) {
-
-        if (sptSet->getValue(v) == false && dist->getValue(v) <= min) {
-            min = dist->getValue(v);
-            min_index = v;
-        }
-    }
-    return min_index;
-}
-
-
-
-template<typename T>
 void AdjacencyMatrix<T>::dijkstra(int src){
     const int  MAX_INT_VALUE = std::numeric_limits<int>::max();
     SinglyLinkedList<int>* dist = new SinglyLinkedList<int>();
     SinglyLinkedList<bool>* sptSet = new SinglyLinkedList<bool>();
-
 
     for (int i = 0; i < this->matrixOrder; i++){
         dist->insert(MAX_INT_VALUE);
@@ -168,6 +147,59 @@ void AdjacencyMatrix<T>::dijkstra(int src){
     }
 
 }
+
+
+template<typename T>
+void AdjacencyMatrix<T>::bfs(int src)
+{
+    Queue<int>* q = new Queue<int>();
+    SinglyLinkedList<bool>* visited = new SinglyLinkedList<bool>;//(this->size(), false)
+    for (int i = 0; i < this->matrixOrder; ++i) {
+        visited->insert(false);
+        this->previousNode->changeValue(i, -1);
+    }
+
+    q->enqueue(src);
+    visited->changeValue(src, true);
+
+    int vis;
+    while (!q->isEmpty()) {
+        vis = q->getFront();
+        q->dequeue();
+
+        for (int i = 0; i < this->matrixOrder; i++) {
+            if (getNodeWeight(vis, i) == 1 && (!visited->getValue(i))) {
+                visited->changeValue(i, true);
+                q->enqueue(i);
+                previousNode->changeValue(i, vis);
+            }
+        }
+    }
+}
+
+template<typename T>
+auto* AdjacencyMatrix<T>::getHead(){
+    return this->head;
+}
+
+template<typename T>
+int AdjacencyMatrix<T>::minDistance(SinglyLinkedList<int>* dist, SinglyLinkedList<bool>* sptSet)
+{
+    int min = std::numeric_limits<int>::max();
+    int min_index = -1;
+
+    for (int v = 0; v < this->matrixOrder; v++) {
+
+        if (sptSet->getValue(v) == false && dist->getValue(v) <= min) {
+            min = dist->getValue(v);
+            min_index = v;
+        }
+    }
+    return min_index;
+}
+
+
+
 
 template<typename T>
 void AdjacencyMatrix<T>::printPath(int currentNode, SinglyLinkedList<int>* previousNode) {

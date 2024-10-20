@@ -24,8 +24,8 @@ HEADERS += include/mainwindow.h \
            include/data_pair.h \
            include/game_state.h \
            include/map.h \
-           include/paired_priority_queue.h \
            include/player_data.h \
+           include/queue.h \
            include/singly_linked_list.h \
            include/square_items.h \
            include/tank.h \
