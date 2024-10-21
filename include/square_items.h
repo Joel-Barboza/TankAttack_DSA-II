@@ -5,6 +5,7 @@
 #include <QBrush>
 #include <QPen>
 #include <QGraphicsSceneHoverEvent>
+#include <QDebug>
 
 class SquareItem : public QGraphicsRectItem {
 public:
