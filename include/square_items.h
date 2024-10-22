@@ -7,6 +7,7 @@
 #include <QGraphicsSceneHoverEvent>
 #include <include/game_state.h>
 #include <include/mainwindow.h>
+#include <QDebug>
 
 class SquareItem : public QGraphicsRectItem {
 public:
