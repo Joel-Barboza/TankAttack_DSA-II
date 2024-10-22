@@ -4,7 +4,7 @@
 
 
 
-MainWindow::MainWindow(QWidget *parent, GameState* gameState)
+MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -16,10 +16,12 @@ MainWindow::MainWindow(QWidget *parent, GameState* gameState)
     view = new QGraphicsView(this);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 
 
-    map = new Map(this, gameState);
-    map->setBackgroundBrush(QColor("gray"));
+
+    map = new Map(this);
+    map->setBackgroundBrush(QColor("blue"));
 
     statusBar()->hide();
 
@@ -49,6 +51,8 @@ MainWindow::MainWindow(QWidget *parent, GameState* gameState)
     setFixedSize(1200, 1000);
 
 }
+
+Map* MainWindow::map = nullptr;
 
 MainWindow::~MainWindow()
 {

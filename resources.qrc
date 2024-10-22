@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/fondo del menu">
+        <file>fondo del juego.jpeg</file>
+    </qresource>
+</RCC>
