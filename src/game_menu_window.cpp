@@ -1,6 +1,7 @@
-#include "game_menu_window.h"
+#include "include/game_menu_window.h"
 #include "include/mainwindow.h"
-#include "how_to_play_window.h"
+#include "include/how_to_play_window.h"
+#include "include/game_state.h"
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -89,7 +90,7 @@ void game_menu_window::onButtonClick(){
         qDebug() << "Abriendo el juego...";
         //Crea e inicia MainWindow
         GameState* gameState = new GameState();
-        MainWindow *mainWindow = new MainWindow(nullptr, gameState);
+        MainWindow *mainWindow = new MainWindow(nullptr);
         mainWindow->setFixedSize(1200, 800);
         mainWindow->show();
         this->close();

@@ -32,7 +32,7 @@ HEADERS += include/mainwindow.h \
            include/bullet.h
 
 SOURCES += src/main.cpp \
-           include/game_menu_window.cpp \
+           src/game_menu_window.cpp \
            src/how_to_play_window.cpp \
            src/player_data.cpp \
            src/game_state.cpp \

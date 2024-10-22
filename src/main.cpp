@@ -1,5 +1,3 @@
-#include "include/mainwindow.h"
-#include "include/adjacency_matrix.h"
 #include "include/game_menu_window.h"
 #include <QApplication>
 #include <include/game_state.h>
