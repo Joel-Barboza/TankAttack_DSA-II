@@ -1,16 +1,25 @@
 #include "include/mainwindow.h"
 #include "ui_mainwindow.h"
 #include "include/game_state.h"
+#include <QTimer>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QDebug>
 
 
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+
+    // Inicializa el contador
+    , secondsElapsed(0)
+    , timer(new QTimer(this))
 {
     ui->setupUi(this);
 
     QVBoxLayout* layout = new QVBoxLayout;
+    layout->setContentsMargins(0,0,0,0);
 
 
     view = new QGraphicsView(this);
@@ -42,6 +51,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     layout->addWidget(playerData);
 
+    // Crea un Label para el cronometro
+    timerLabel = new QLabel("00:00");
+    timerLabel->setAlignment(Qt::AlignCenter);
+    timerLabel->setStyleSheet("background-color: lightblue; font-size: 24px; font-weight: bold; border: none;");
+    layout->addWidget(timerLabel);
+
 
     QWidget* centralWidget = new QWidget(this);
     centralWidget->setLayout(layout);
@@ -50,7 +65,28 @@ MainWindow::MainWindow(QWidget *parent)
 
     setFixedSize(1200, 1000);
 
+    // Configura el QTimer para el cronometro
+    //QTimer* timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MainWindow::updateTimer);
+    timer->start(1000); // Actualiza cada segundo
+
 }
+void MainWindow::updateTimer() {
+    secondsElapsed++;
+    int minutes = secondsElapsed / 60;
+    int seconds = secondsElapsed % 60;
+    timerLabel->setText(QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0')));
+
+    // Tiempo termina a los 5min
+    if (secondsElapsed >= 300){
+        timer->stop();
+        qDebug() << "Termino el tiempo";
+        this->setEnabled(false);
+        qDebug() << "Termino el juego";
+    }
+
+}
+
 
 Map* MainWindow::map = nullptr;
 

@@ -26,5 +26,16 @@ private:
     Ui::MainWindow *ui;
     QGraphicsView *view;
     PlayerData* playerData;
+
+    // Contador de segundos
+    int secondsElapsed;
+    // Label para el tiempo
+    QLabel *timerLabel;
+
+private:
+    QTimer* timer;
+
+private slots:
+    void updateTimer();
 };
 #endif // MAINWINDOW_H
