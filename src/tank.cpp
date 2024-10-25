@@ -54,12 +54,12 @@ int Tank::getTopLeftY(){ return topLeftY; }
 
 void Tank::setGridPosition(int row, int column)
 {
-    int xCoord = column*50;
-    int yCoord = row*50;
+    int xCoord = column*50+5;
+    int yCoord = row*50+5;
     setPos(xCoord, yCoord);
     setTopLeftX(xCoord);
     setTopLeftY(yCoord);
-    setNodeIndexPos(xCoord/50 + GameState::columns*yCoord/50);
+    setNodeIndexPos((xCoord-5)/50 + GameState::columns*(yCoord-5)/50);
 
 }
 

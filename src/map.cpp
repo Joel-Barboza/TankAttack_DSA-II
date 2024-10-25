@@ -27,23 +27,23 @@ Map::Map(QWidget *parent) {
 
 
 void Map::createGrid(int numRows, int numCols, AdjacencyMatrix<int>* adjMatrix) {
-    int squareSize = 10;
+    int squareSize = 50;
     QRectF sceneRect = this->sceneRect();
     qDebug()<< sceneRect.width()/*<< << << */<< "\n";
 
     // Initialize the walls and add them to the scene
-    topWall = new QGraphicsRectItem(0, 0, 1150, 5);
-    bottomWall = new QGraphicsRectItem(0, 903, 1150, 5);
-    leftWall = new QGraphicsRectItem(sceneRect.left() - 5, sceneRect.top(), 5, sceneRect.height());
-    rightWall = new QGraphicsRectItem(sceneRect.right(), sceneRect.top(), 5, sceneRect.height());
-    topWall->setBrush(QColor(0x90F545)); // #90F545
-    bottomWall->setBrush(QColor(0x90F545));
-    leftWall->setBrush(QColor(0x90F545));
-    rightWall->setBrush(QColor(0x90F545));
-    topWall->setZValue(500);// #90F545
-    bottomWall->setZValue(500);
-    leftWall->setZValue(500);
-    rightWall->setZValue(500);
+    topWall = new QGraphicsRectItem(0, 0, 1210, 5);
+    bottomWall = new QGraphicsRectItem(0, 705, 1210, 5);
+    leftWall = new QGraphicsRectItem(0, 5, 5, 700);
+    rightWall = new QGraphicsRectItem(1205, 5, 5, 700);
+    topWall->setBrush(QColor(0x50C005)); // #50C005
+    bottomWall->setBrush(QColor(0x50C005));
+    leftWall->setBrush(QColor(0x50C005));
+    rightWall->setBrush(QColor(0x50C005));
+    topWall->setZValue(5);// #90F545
+    bottomWall->setZValue(5);
+    leftWall->setZValue(5);
+    rightWall->setZValue(5);
     topWall->setPen(Qt::NoPen);
     bottomWall->setPen(Qt::NoPen);
     leftWall->setPen(Qt::NoPen);
@@ -230,17 +230,33 @@ void Map::shootBullet(QPointF endPoint) {
     qreal deltaY = endPoint.ry() - GameState::pair->getFirst()->getTopLeftY() +1;
 
     qreal angleRadians = qAtan2(deltaY, deltaX);
+    qDebug() << qRadiansToDegrees(angleRadians) << "\n";
 
     //qreal angleDegrees = qRadiansToDegrees(angleRadians);
 
     timer = new QTimer(this);
     int counter = 0;
-    QGraphicsItem* previousCollide = nullptr;
+    QGraphicsItem* previousCollide = GameState::pair->getFirst();
     connect(timer, &QTimer::timeout, this, [=]() mutable {
         QList<QGraphicsItem*> collidingItemsList = bullet->collidingItems();
         for (auto* item : collidingItemsList) {
-            if (GameState::obstacleList->find(dynamic_cast<SquareItem*>(item)) && item != previousCollide) {
-                previousCollide = item;
+            if (item != previousCollide &&
+                (GameState::obstacleList->find(dynamic_cast<SquareItem*>(item)) ||
+                item == this->bottomWall || item == this->topWall || item == this->rightWall || item == this->leftWall)
+                ) {
+                // int xDifference = item->boundingRect().topLeft().rx() - previousCollide->boundingRect().topLeft().rx();
+                // int yDifference = item->boundingRect().topLeft().ry() - previousCollide->boundingRect().topLeft().ry();
+                // previousCollide = item;
+                // qDebug() << xDifference << " " << yDifference << " " << "\n";
+                // if (xDifference <= 0 && yDifference <= 0) {
+                //     angleRadians = M_PI-angleRadians;
+                // } else if (xDifference < 0 && yDifference > 0) {
+                //     // angleRadians = M_PI-angleRadians;
+                // } else if (xDifference > 0 && yDifference < 0) {
+                //     // angleRadians = M_PI-angleRadians;
+                // } else if (xDifference > 0 && yDifference > 0) {
+                //     // angleRadians = M_PI-angleRadians;
+                // }
                 angleRadians = M_PI-angleRadians;
                 if (counter == 3) {
                     if (!timer) return;

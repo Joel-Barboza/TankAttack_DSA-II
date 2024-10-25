@@ -76,7 +76,7 @@ game_menu_window::game_menu_window(QWidget *parent) : QWidget(parent) {
     // Conectar la señal de los botones al slot
     connect(button1, &QPushButton::clicked, this, &game_menu_window::onButtonClick);
     connect(button2, &QPushButton::clicked, this, &game_menu_window::onButtonClick);
-    button1->animateClick();
+    //button1->animateClick();
 }
 
 game_menu_window::~game_menu_window(){
@@ -92,7 +92,7 @@ void game_menu_window::onButtonClick(){
         //Crea e inicia MainWindow
         GameState* gameState = new GameState();
         MainWindow *mainWindow = new MainWindow(nullptr);
-        mainWindow->setFixedSize(1200, 800);
+        mainWindow->setFixedSize(1213, 871);
         mainWindow->show();
         this->close();
     }
