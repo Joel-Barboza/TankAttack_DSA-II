@@ -35,6 +35,9 @@ private:
 private:
     QTimer* timer;
 
+private:
+    QString winningPlayer;
+
 private slots:
     void updateTimer();
 };

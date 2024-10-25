@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QDebug>
+#include <QMessageBox>
 
 
 
@@ -15,8 +16,13 @@ MainWindow::MainWindow(QWidget *parent)
     // Inicializa el contador
     , secondsElapsed(0)
     , timer(new QTimer(this))
+
+    // Variable donde se guarda el ganador
+    , winningPlayer("Jugador 1")
+
 {
     ui->setupUi(this);
+
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setContentsMargins(0,0,0,0);
@@ -83,6 +89,9 @@ void MainWindow::updateTimer() {
         qDebug() << "Termino el tiempo";
         this->setEnabled(false);
         qDebug() << "Termino el juego";
+
+        QString message = QString("El ganador es:  %1!").arg(winningPlayer);
+        QMessageBox::information(this, "Fin de la partida", message);
     }
 
 }
