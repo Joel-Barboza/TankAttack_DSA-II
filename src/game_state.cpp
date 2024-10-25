@@ -2,11 +2,17 @@
 
 GameState::GameState()
 {
+    // AdjacencyMatrix<int>* sf = new AdjacencyMatrix<int>(3,4);
+    // for (int i = 0; i < sf->getMatrixOrder(); ++i) {
+    //     sf->addEdgesToNeighbor(i);
+    // }
+    // sf->printAdjMatrix();
 
-    adjMatrix->addEdges();
+    for (int i = 0; i < adjMatrix->getMatrixOrder(); ++i) {
+        adjMatrix->addEdgesToNeighbor(i);
+    }
     initializeTanks();
     adjMatrix->placeObstacles(player1TankList, player2TankList);
-    std::cout << "\nRunning Dijkstra's algorithm from node 0..." << std::endl;
     adjMatrix->bfs(0);
 
 }
@@ -14,8 +20,8 @@ GameState::GameState()
 int GameState::rows = 14;
 int GameState::columns = 24;
 
-// int GameState::rows = 3;
-// int GameState::columns = 4;
+// int GameState::rows = 10;
+// int GameState::columns = 10;
 
 DataPair<Tank*, SquareItem*>* GameState::pair = new DataPair<Tank*, SquareItem*>();
 // SinglyLinkedList<SquareItem*>* GameState::pair = new SinglyLinkedList<SquareItem*>();
@@ -27,7 +33,7 @@ SinglyLinkedList<QGraphicsLineItem*>* GameState::pathLinesList = new SinglyLinke
 SinglyLinkedList<Tank*>* GameState::player1TankList = new SinglyLinkedList<Tank*>();
 SinglyLinkedList<Tank*>* GameState::player2TankList = new SinglyLinkedList<Tank*>();
 
-
+SinglyLinkedList<SquareItem*>* GameState::obstacleList = new SinglyLinkedList<SquareItem*>();
 
 void GameState::removeDrawnPath() {
     auto* current = pathLinesList->getHead();
@@ -40,26 +46,28 @@ void GameState::removeDrawnPath() {
 
 //Map* GameState::map = new Map(this);
 
-void GameState::startEndNodePair(SquareItem* square, int squareId) {
+// void GameState::startEndNodePair(SquareItem* square, int squareId) {
 
-    if (adjMatrix->getIsUnreachable(squareId)) return;
+//     if (adjMatrix->getIsUnreachable(squareId)) return;
 
-    if (pair->getFirst() != nullptr && pair->getSecond() != nullptr) {
-        pair->clear();
-    }
-    // if () {
-    // }
-    //     pair->insert(square);
+//     if (pair->getFirst() != nullptr && pair->getSecond() != nullptr) {
+//         pair->clear();
+//     }
+//     // if () {
+//     // }
+//     //     pair->insert(square);
 
-}
+// }
 
 void GameState::selectTank(Tank* tank, int squareId) {
+    removeDrawnPath();
     if (tank != pair->getFirst()){
         pair->setFirst(tank);
     }
-}
+    }
 
 void GameState::selectEndPoint(SquareItem* square, int squareId) {
+    qDebug() << "Square left clicked at: " << pair->getSecond() << "\n";
     if (pair->getFirst() == nullptr) return;
 
     if (square != pair->getSecond()){

@@ -26,6 +26,7 @@ public:
     static SinglyLinkedList<Tank*>* player2TankList;
     static void selectTank(Tank *square, int squareId);
     static void selectEndPoint(SquareItem *square, int squareId);
+    static SinglyLinkedList<SquareItem*>* obstacleList;
 private:
     void initializeTanks();
 

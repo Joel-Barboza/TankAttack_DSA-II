@@ -76,6 +76,7 @@ game_menu_window::game_menu_window(QWidget *parent) : QWidget(parent) {
     // Conectar la señal de los botones al slot
     connect(button1, &QPushButton::clicked, this, &game_menu_window::onButtonClick);
     connect(button2, &QPushButton::clicked, this, &game_menu_window::onButtonClick);
+    button1->animateClick();
 }
 
 game_menu_window::~game_menu_window(){

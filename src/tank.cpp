@@ -74,10 +74,10 @@ void Tank::mousePressEvent(QGraphicsSceneMouseEvent* event) {
 
     if (GameState::pair->getFirst() != nullptr) {
         GameState::pair->getFirst()->setGraphicsEffect(nullptr);
-        GameState::removeDrawnPath();
+        //GameState::removeDrawnPath();
     }
     if (GameState::pair->getSecond() != nullptr) {
-        GameState::pair->getSecond()->setBrush(QColor("#B4C8C8"));
+        GameState::pair->getSecond()->setBrush(QColor(0xB4C8C8));
     }
     if (topItem == this) {
         qDebug() << "Tank clicked at: " << nodeIndexPos << "\n";

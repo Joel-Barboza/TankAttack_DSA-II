@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     view->setScene(map);
 
 
-    view->setFixedSize(1200, 900);
+    view->setFixedSize(1205, 908);
 
 
     layout->addWidget(view);
@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(centralWidget);
     centralWidget->layout()->setContentsMargins(0, 0, 0, 0);
 
-    setFixedSize(1200, 1000);
+    setFixedSize(1205, 1008);
 
 }
 

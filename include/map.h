@@ -27,10 +27,16 @@ public:
 
     void moveTank(SinglyLinkedList<DataPair<QPoint, QPoint>*>* pointList);
     void moveTankToNeighbor(QPoint startPoint, QPoint endPoint);
+    QGraphicsLineItem* createLine(int x1, int y1, int x2, int y2);
+    void shootBullet(QPointF endPoint);
+    qreal getAngleBetweenPoints(QPointF p1, QPointF p2);
 private:
     // QGridLayout *gridLayout;
     void createGrid(int numRows, int numCols, AdjacencyMatrix<int>* adjMatrix);  // Helper function to create the grid
-    QGraphicsLineItem* createLine(int x1, int y1, int x2, int y2);
+    QGraphicsRectItem* topWall;
+    QGraphicsRectItem* bottomWall;
+    QGraphicsRectItem* leftWall;
+    QGraphicsRectItem* rightWall;
 };
 
 
