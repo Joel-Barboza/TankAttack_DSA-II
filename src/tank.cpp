@@ -67,6 +67,7 @@ void Tank::setGridPosition(int row, int column)
 void Tank::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     setZValue(10);
     if (MainWindow::map->timer) return; // Avoid clicking while timer is active
+    qDebug() << "jdfjalsdfj" << "\n";
 
 
     QPointF scenePos = event->scenePos();
@@ -113,6 +114,34 @@ void Tank::setCenteredPos(int x, int y) {
     int newX = x - bounds.width() / 2;
     int newY = y - bounds.height() / 2;
     this->setPos(newX, newY);
+}
+
+void Tank::instaKill()
+{
+    this->health = 0;
+    if (GameState::player1TankList->find(this)) {
+        GameState::player1TankList->remove(this);
+        delete this;
+    }
+    if (GameState::player2TankList->find(this)) {
+        GameState::player2TankList->remove(this);
+        delete this;
+    }
+}
+
+void Tank::reduceHealth()
+{
+    if (tankType == BlueTank || tankType == LightBlueTank) {
+        health -= 25;
+        if (health <= 0){
+            instaKill();
+        }
+    } else if (tankType == YellowTank || tankType == RedTank) {
+        health -= 50;
+        if (health <= 0){
+            instaKill();
+        }
+    }
 }
 
 

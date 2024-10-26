@@ -33,6 +33,8 @@ public:
     void rotateEast();
     void rotateWest();
     void setCenteredPos(int x, int y);
+    void instaKill();
+    void reduceHealth();
 private:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     int health = 100;

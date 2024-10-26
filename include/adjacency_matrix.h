@@ -48,7 +48,7 @@ public:
 
     bool getIsUnreachable(int nodeIndex);
 
-    bool getHasTank();
+    bool getHasTank(int gridNodeIndex);
 
     void bfs(int src);
     int getMatrixOrder();
@@ -62,7 +62,7 @@ private:
         bool isTank;
         int index;
         //std::numeric_limits<int>::max()
-        Node(int indx) : weight(0), right(nullptr), down(nullptr), isUnreachable(false), index(indx)  {}
+        Node(int indx) : weight(0), right(nullptr), down(nullptr), isUnreachable(false), isTank(false), index(indx)  {}
     };
 
     Node* head = nullptr;
@@ -193,6 +193,18 @@ auto* AdjacencyMatrix<T>::getHead(){
 }
 
 template<typename T>
+bool AdjacencyMatrix<T>::getHasTank(int gridNodeIndex){
+    Node* current = this->head;
+    for (int i = 0; i < gridNodeIndex/this->matrixOrder; ++i) {
+        current = current->down;
+    }
+    for (int j = 0; j < gridNodeIndex%this->matrixOrder; ++j) {
+        current = current->right;
+    }
+    return current->isTank;
+}
+
+template<typename T>
 int AdjacencyMatrix<T>::minDistance(SinglyLinkedList<int>* dist, SinglyLinkedList<bool>* sptSet)
 {
     int min = std::numeric_limits<int>::max();
@@ -266,7 +278,7 @@ void AdjacencyMatrix<T>::setOccupiedByTank(int nodeIndex)
         currentRowElem->isTank = true;
         currentColumnElem->isTank = true;
         currentColumnElem->weight = 0;
-        // currentRowElem->isUnreachable = true;
+        //currentRowElem->isUnreachable = true;
         currentColumnElem->isUnreachable = true;
         currentRowElem = currentRowElem->right;
         currentColumnElem = currentColumnElem->down;
@@ -458,7 +470,7 @@ void AdjacencyMatrix<T>::placeObstacles(SinglyLinkedList<Tank*>* player1TankList
     srand(time(0));
     for (int i = 0; i <= this->matrixOrder/10; ++i) {
         int toPlaceObst = rand()%matrixOrder + 1;
-        while (occupiedCells->find(toPlaceObst)) {
+        while (occupiedCells->find(toPlaceObst) != nullptr) {
             toPlaceObst = rand()%matrixOrder + 1;
         }
         occupiedCells->insert(toPlaceObst);

@@ -6,6 +6,11 @@
 template<typename T>
 class SinglyLinkedList {
 public:
+    struct Node {
+        T data;
+        Node* next;
+        Node(const T& value) : data(value), next(nullptr) {}
+    };
 
     SinglyLinkedList();
 
@@ -21,7 +26,7 @@ public:
     bool remove(const T& value);
 
 
-    bool find(const T& value) const;
+    typename SinglyLinkedList<T>::Node* find(const T& value) const;
 
 
     void print() const;
@@ -37,11 +42,6 @@ public:
 private:
 
 
-    struct Node {
-        T data;
-        Node* next;
-        Node(const T& value) : data(value), next(nullptr) {}
-    };
     Node* head = nullptr;
 
     int size = 0;
@@ -101,7 +101,7 @@ bool SinglyLinkedList<T>::remove(const T& value) {
     if (head->data == value) {
         Node* temp = head;
         head = head->next;
-        delete temp;
+        delete temp;        
         --this->size;
         return true;
     }
@@ -123,15 +123,15 @@ bool SinglyLinkedList<T>::remove(const T& value) {
 }
 
 template<typename T>
-bool SinglyLinkedList<T>::find(const T& value) const {
+typename SinglyLinkedList<T>::Node* SinglyLinkedList<T>::find(const T& value) const {
     Node* current = head;
     while (current != nullptr) {
         if (current->data == value) {
-            return true;
+            return current;
         }
         current = current->next;
     }
-    return false;
+    return nullptr;
 }
 
 template<typename T>

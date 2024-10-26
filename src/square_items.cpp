@@ -11,9 +11,9 @@ SquareItem::SquareItem(qreal x, qreal y, qreal width, qreal height, int index, Q
 // Mouse press event
 void SquareItem::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     setZValue(10);
+    if (MainWindow::map->timer || GameState::adjMatrix->getIsUnreachable(squareId)) return; // Avoid clicking while timer is active
     if (event->button() == Qt::LeftButton) {
-
-        if (MainWindow::map->timer || GameState::adjMatrix->getIsUnreachable(squareId)) { return; } // Avoid clicking while timer is active
+        if (GameState::adjMatrix->getHasTank(squareId)) return;
 
         QPointF scenePos = event->scenePos();
         QGraphicsItem* topItem = this->scene()->itemAt(scenePos, QTransform());
@@ -59,6 +59,7 @@ void SquareItem::mousePressEvent(QGraphicsSceneMouseEvent* event) {
         }
         QGraphicsRectItem::mousePressEvent(event);
     } else if (event->button() == Qt::RightButton){
+
         qDebug() << "Square right clicked at: " << squareId << "\n";
         MainWindow::map->shootBullet(this->boundingRect().topLeft());
     }
