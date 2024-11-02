@@ -197,11 +197,12 @@ void Map::moveTank(SinglyLinkedList<DataPair<QPoint, QPoint>*>* pointList) {
                 timer2 = nullptr;
 
                 // Al finalizar el movimiento, cambiar el turno
-                if (currentTurn == Turn::Player1) {
-                    currentTurn = Turn::Player2;
-                } else {
-                    currentTurn = Turn::Player1;
-                }
+                // if (currentTurn == Turn::Player1) {
+                //     currentTurn = Turn::Player2;
+                // } else {
+                //     currentTurn = Turn::Player1;
+                // }
+                endTurn();
 
                 GameState::adjMatrix->setFreeOfTanks(tank->getNodeIndexPos());
                 tank->setGridPosition(GameState::pair->getSecond()->squareId / GameState::columns,
@@ -267,90 +268,98 @@ void Map::moveTankToNeighbor(QPoint startPoint, QPoint endPoint){
 void Map::shootBullet(QPointF endPoint) {
     auto* shootingTank = GameState::pair->getFirst();
     if (shootingTank == nullptr) return;
+    if ((currentTurn == Turn::Player1 && shootingTank->getOwner() == Tank::Player1) ||
+        (currentTurn == Turn::Player2 && shootingTank->getOwner() == Tank::Player2)) {
 
-    shootingTank->setGraphicsEffect(nullptr);
-    Bullet* bullet = new Bullet(shootingTank->getTopLeftX()+20, shootingTank->getTopLeftY()+23, 10, 10);
-    addItem(bullet);
+        shootingTank->setGraphicsEffect(nullptr);
+        Bullet* bullet = new Bullet(shootingTank->getTopLeftX()+20, shootingTank->getTopLeftY()+23, 10, 10);
+        addItem(bullet);
 
-    qreal deltaX = endPoint.rx()- shootingTank->getTopLeftX() +1;
-    qreal deltaY = endPoint.ry() - shootingTank->getTopLeftY() +1;
+        qreal deltaX = endPoint.rx()- shootingTank->getTopLeftX() +1;
+        qreal deltaY = endPoint.ry() - shootingTank->getTopLeftY() +1;
 
-    qreal angleRadians = qAtan2(deltaY, deltaX);
-    qreal angleDegrees = qRadiansToDegrees(angleRadians);
-    shootingTank->setRotation(angleDegrees+90);
-    //qDebug() << qRadiansToDegrees(angleRadians) << "\n";
+        qreal angleRadians = qAtan2(deltaY, deltaX);
+        qreal angleDegrees = qRadiansToDegrees(angleRadians);
+        shootingTank->setRotation(angleDegrees+90);
+        //qDebug() << qRadiansToDegrees(angleRadians) << "\n";
 
 
-    timer = new QTimer(this);
-    int bounceCount = 0;
-    QGraphicsItem* previousCollide = shootingTank;
-    bool bulletOutOfTank = false;
-    connect(timer, &QTimer::timeout, this, [=]() mutable {
+        timer = new QTimer(this);
+        int bounceCount = 0;
+        QGraphicsItem* previousCollide = shootingTank;
+        bool bulletOutOfTank = false;
+        connect(timer, &QTimer::timeout, this, [=]() mutable {
 
-        QList<QGraphicsItem*> collidingItemsList = bullet->collidingItems();
-        for (auto* item : collidingItemsList) {
-            if (!bulletOutOfTank) {
-                if (!collidingItemsList.contains(shootingTank)) {
-                    bulletOutOfTank = true;
+            QList<QGraphicsItem*> collidingItemsList = bullet->collidingItems();
+            for (auto* item : collidingItemsList) {
+                if (!bulletOutOfTank) {
+                    if (!collidingItemsList.contains(shootingTank)) {
+                        bulletOutOfTank = true;
+                    }
                 }
-            }
-            if (((GameState::player2->tankList->find(dynamic_cast<Tank*>(item)) && GameState::player1->tankList->find(shootingTank))||      // shoots player 1, no damage for his own tank
-                 (GameState::player1->tankList->find(dynamic_cast<Tank*>(item)) && GameState::player2->tankList->find(shootingTank))) ||    // shoots player 2, no damage for his own tank
-                (bulletOutOfTank && item == shootingTank)                                                                               // can shoot itself
-                ) {
-                shootingTank->rotateNorth();
-                dynamic_cast<Tank*>(item)->reduceHealth();
-                timer->stop();
-                timer->deleteLater();
-                delete bullet;
-                timer = nullptr;
-                GameState::pair->clear();
-                return;
-            }
-            if (item != previousCollide &&
-                (GameState::obstacleList->find(dynamic_cast<SquareItem*>(item)) ||
-                item == this->bottomWall || item == this->topWall || item == this->rightWall || item == this->leftWall)
-                ) {
-
-                QRectF bulletRect = bullet->boundingRect().translated(bullet->pos());
-                QRectF itemRect = item->boundingRect().translated(item->pos());
-
-                qreal leftDist = bulletRect.right() - itemRect.left();
-                qreal rightDist = itemRect.right() - bulletRect.left();
-                qreal topDist = bulletRect.bottom() - itemRect.top();
-                qreal bottomDist = itemRect.bottom() - bulletRect.top();
-
-                if ((leftDist < rightDist && leftDist < topDist && leftDist < bottomDist) ||    // Hit on the left side
-                    (rightDist < leftDist && rightDist < topDist && rightDist < bottomDist) ){  // Hit on the right side
-                    angleRadians = M_PI - angleRadians;
-                }
-                else if ((topDist < bottomDist && topDist < leftDist && topDist < rightDist) ||         // Hit on the top side
-                         (bottomDist < topDist && bottomDist < leftDist && bottomDist < rightDist)){    // Hit on the bottom side
-                    angleRadians = -angleRadians;
-                }
-
-                previousCollide = item;
-                bounceCount++;
-
-                if (bounceCount >= 3) {
+                if (((GameState::player2->tankList->find(dynamic_cast<Tank*>(item)) && GameState::player1->tankList->find(shootingTank))||      // shoots player 1, no damage for his own tank
+                     (GameState::player1->tankList->find(dynamic_cast<Tank*>(item)) && GameState::player2->tankList->find(shootingTank))) ||    // shoots player 2, no damage for his own tank
+                    (bulletOutOfTank && item == shootingTank)                                                                               // can shoot itself
+                    ) {
+                    shootingTank->rotateNorth();
+                    dynamic_cast<Tank*>(item)->reduceHealth();
                     timer->stop();
                     timer->deleteLater();
                     delete bullet;
                     timer = nullptr;
-                    shootingTank->rotateNorth();
                     GameState::pair->clear();
+
+                    endTurn();
                     return;
                 }
-            }else {
-                qreal dx = qCos(angleRadians) * 2;
-                qreal dy = qSin(angleRadians) * 2;
-                bullet->setPos(bullet->x() + dx, bullet->y() + dy);
+                if (item != previousCollide &&
+                    (GameState::obstacleList->find(dynamic_cast<SquareItem*>(item)) ||
+                    item == this->bottomWall || item == this->topWall || item == this->rightWall || item == this->leftWall)
+                    ) {
 
+                    QRectF bulletRect = bullet->boundingRect().translated(bullet->pos());
+                    QRectF itemRect = item->boundingRect().translated(item->pos());
+
+                    qreal leftDist = bulletRect.right() - itemRect.left();
+                    qreal rightDist = itemRect.right() - bulletRect.left();
+                    qreal topDist = bulletRect.bottom() - itemRect.top();
+                    qreal bottomDist = itemRect.bottom() - bulletRect.top();
+
+                    if ((leftDist < rightDist && leftDist < topDist && leftDist < bottomDist) ||    // Hit on the left side
+                        (rightDist < leftDist && rightDist < topDist && rightDist < bottomDist) ){  // Hit on the right side
+                        angleRadians = M_PI - angleRadians;
+                    }
+                    else if ((topDist < bottomDist && topDist < leftDist && topDist < rightDist) ||         // Hit on the top side
+                             (bottomDist < topDist && bottomDist < leftDist && bottomDist < rightDist)){    // Hit on the bottom side
+                        angleRadians = -angleRadians;
+                    }
+
+                    previousCollide = item;
+                    bounceCount++;
+
+                    if (bounceCount >= 3) {
+                        timer->stop();
+                        timer->deleteLater();
+                        delete bullet;
+                        timer = nullptr;
+                        shootingTank->rotateNorth();
+                        GameState::pair->clear();
+                        endTurn();
+                        return;
+                    }
+                }else {
+                    qreal dx = qCos(angleRadians) * 2;
+                    qreal dy = qSin(angleRadians) * 2;
+                    bullet->setPos(bullet->x() + dx, bullet->y() + dy);
+
+                }
             }
-        }
-    });
+        });
+        timer->start(5);
+    }else {
+        qDebug() << "No es el turno del jugador para mover este tanque.";
+    }
 
-    timer->start(5);
 
 }
 qreal Map::getAngleBetweenPoints(QPointF p1, QPointF p2) {

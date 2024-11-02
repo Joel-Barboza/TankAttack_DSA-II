@@ -41,6 +41,8 @@ void SquareItem::mousePressEvent(QGraphicsSceneMouseEvent* event) {
                 if (GameState::pair->getFirst()->getTankType() == Tank::BlueTank || GameState::pair->getFirst()->getTankType() == Tank::LightBlueTank) {
 
                     GameState::adjMatrix->bfs(GameState::pair->getFirst()->getNodeIndexPos());
+                    //GameState::adjMatrix->aStar(GameState::pair->getFirst()->getNodeIndexPos(), squareId);
+                    //qDebug() << "using A*";
 
                 } else if (GameState::pair->getFirst()->getTankType() == Tank::YellowTank || GameState::pair->getFirst()->getTankType() == Tank::RedTank) {
 

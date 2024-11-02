@@ -8,12 +8,22 @@ PlayerData::PlayerData(QWidget *parent) : QWidget(parent) {
 
 void PlayerData::spendPlayer1PwrUp()
 {
-    std::cout << "asdf\n";
+    PowerUp* pwrUp = GameState::player1->powerUpQueue->getFront().value_or(nullptr);
+    if (pwrUp->getPowerUpType() != PowerUp::DoubleTurn) {
+        GameState::player1->activatedPowerUp->insert(pwrUp);
+    }
+    delete pwrUp->getPowerUpImg();
+    GameState::player1->powerUpQueue->dequeue();
 }
 
 void PlayerData::spendPlayer2PwrUp()
 {
-    std::cout << "asdf\n";
+    PowerUp* pwrUp = GameState::player2->powerUpQueue->getFront().value_or(nullptr);
+    if (pwrUp->getPowerUpType() != PowerUp::DoubleTurn) {
+        GameState::player2->activatedPowerUp->insert(pwrUp);
+    }
+    delete pwrUp->getPowerUpImg();
+    GameState::player2->powerUpQueue->dequeue();
 
 }
 

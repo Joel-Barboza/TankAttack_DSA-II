@@ -87,7 +87,7 @@ void MainWindow::updateTimer() {
     int seconds = secondsElapsed % 60;
     timerLabel->setText(QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0')));
 
-    if (secondsElapsed%30 == 0 && 0 < secondsElapsed  && secondsElapsed != 300 ) {
+    if (secondsElapsed%5 == 0 && 0 < secondsElapsed  && secondsElapsed != 300 ) {
         int p1QueueSize = GameState::player1->powerUpQueue->getSize();
         int p2QueueSize = GameState::player2->powerUpQueue->getSize();
         if (p1QueueSize < 8) {
@@ -122,26 +122,26 @@ bool MainWindow::eventFilter(QObject* obj, QEvent* event) {
         if (keyEvent->key() == Qt::Key_Shift) {
             if (map->currentTurn == map->Turn::Player1) {
                 qDebug() << "Shift key pressed!";
-                // PowerUp* nextPowerUp = GameState::player1->powerUpQueue->getFront().value_or(nullptr);
-                // if (!nextPowerUp) return true;
-                // // GameState::player1->activatedPowerUp->insert(nextPowerUp);
-                // if (nextPowerUp->getPowerUpType() == PowerUp::DoubleTurn) {
-                //     map->hasExtraTurn = true;
-                // } else {
-                //     map->endTurn();
-                // }
-                // playerData->spendPlayer1PwrUp();
+                PowerUp* nextPowerUp = GameState::player1->powerUpQueue->getFront().value_or(nullptr);
+                if (!nextPowerUp) return true;
+                // GameState::player1->activatedPowerUp->insert(nextPowerUp);
+                if (nextPowerUp->getPowerUpType() == PowerUp::DoubleTurn) {
+                    map->hasExtraTurn = true;
+                } else {
+                    map->endTurn();
+                }
+                playerData->spendPlayer1PwrUp();
             } else if (map->currentTurn == map->Turn::Player2) {
                 qDebug() << "Shift key pressed!";
-                // PowerUp* nextPowerUp = GameState::player2->powerUpQueue->getFront().value_or(nullptr);
-                // if (!nextPowerUp) return true;
-                // // GameState::player2->activatedPowerUp->insert(nextPowerUp);
-                // if (nextPowerUp->getPowerUpType() == PowerUp::DoubleTurn) {
-                //     map->hasExtraTurn = true;
-                // } else {
-                //     map->endTurn();
-                // }
-                // playerData->spendPlayer2PwrUp();
+                PowerUp* nextPowerUp = GameState::player2->powerUpQueue->getFront().value_or(nullptr);
+                if (!nextPowerUp) return true;
+                // GameState::player2->activatedPowerUp->insert(nextPowerUp);
+                if (nextPowerUp->getPowerUpType() == PowerUp::DoubleTurn) {
+                    map->hasExtraTurn = true;
+                } else {
+                    map->endTurn();
+                }
+                playerData->spendPlayer2PwrUp();
             }
             return true;
         }

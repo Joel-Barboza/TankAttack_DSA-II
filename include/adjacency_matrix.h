@@ -55,6 +55,11 @@ public:
 
     bool allPlacesAreReachable(int src);
 
+    void aStar(int src, int target);
+
+    int minFScore(SinglyLinkedList<int> *fScore, SinglyLinkedList<bool> *visitedSet);
+
+    int heuristic(int current, int target);
 private:
     struct Node {
         int weight;
@@ -182,6 +187,73 @@ void AdjacencyMatrix<T>::bfs(int src)
         }
     }
 }
+template<typename T>
+void AdjacencyMatrix<T>::aStar(int src, int target) {
+    const int MAX_INT_VALUE = std::numeric_limits<int>::max();
+    SinglyLinkedList<int>* dist = new SinglyLinkedList<int>();
+    SinglyLinkedList<int>* fScore = new SinglyLinkedList<int>();  // f(n) = g(n) + h(n)
+    SinglyLinkedList<bool>* visitedSet = new SinglyLinkedList<bool>();
+
+    for (int i = 0; i < this->matrixOrder; i++) {
+        dist->insert(MAX_INT_VALUE);       // Initialize g(n)
+        fScore->insert(MAX_INT_VALUE);     // Initialize f(n)
+        visitedSet->insert(false);         // Track visited nodes
+        this->previousNode->changeValue(i, -1);
+    }
+
+    dist->changeValue(src, 0);             // Distance of start node from itself is 0
+    fScore->changeValue(src, heuristic(src, target));  // Initialize f(src) = h(src)
+
+    for (int counter = 0; counter < this->matrixOrder; ++counter) {
+        int u = minFScore(fScore, visitedSet); // Get node with minimum fScore
+
+        if (u == target) {
+            break;  // Reached the target
+        }
+
+        if (fScore->getValue(u) == MAX_INT_VALUE) {
+            break;  // No more reachable nodes
+        }
+
+        visitedSet->changeValue(u, true);
+
+        for (int v = 0; v < this->matrixOrder; v++) {
+            int weight = this->getNodeWeight(u, v);
+
+            if (!visitedSet->getValue(v) && weight > 0 && dist->getValue(u) != MAX_INT_VALUE) {
+                int tentativeGScore = dist->getValue(u) + weight;
+
+                if (tentativeGScore < dist->getValue(v)) {
+                    dist->changeValue(v, tentativeGScore);                // Update g(v)
+                    fScore->changeValue(v, tentativeGScore + heuristic(v, target)); // Update f(v)
+                    this->previousNode->changeValue(v, u);                // Track the path
+                }
+            }
+        }
+    }
+}
+
+template<typename T>
+int AdjacencyMatrix<T>::heuristic(int current, int target) {
+    // Define heuristic based on your graph type; e.g., return absolute distance for grid graphs.
+    // For this example, we'll assume a 0 heuristic for simplicity:
+    return 0;
+}
+
+template<typename T>
+int AdjacencyMatrix<T>::minFScore(SinglyLinkedList<int>* fScore, SinglyLinkedList<bool>* visitedSet) {
+    int min = std::numeric_limits<int>::max();
+    int min_index = -1;
+
+    for (int v = 0; v < this->matrixOrder; v++) {
+        if (!visitedSet->getValue(v) && fScore->getValue(v) <= min) {
+            min = fScore->getValue(v);
+            min_index = v;
+        }
+    }
+    return min_index;
+}
+
 
 template<typename T>
 int AdjacencyMatrix<T>::getMatrixOrder()

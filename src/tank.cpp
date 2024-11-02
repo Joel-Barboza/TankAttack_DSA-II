@@ -79,7 +79,6 @@ void Tank::setGridPosition(int row, int column)
 void Tank::mousePressEvent(QGraphicsSceneMouseEvent* event) {
     setZValue(10);
     if (MainWindow::map->timer) return; // Avoid clicking while timer is active
-    qDebug() << "jdfjalsdfj" << "\n";
 
 
     QPointF scenePos = event->scenePos();
@@ -90,9 +89,11 @@ void Tank::mousePressEvent(QGraphicsSceneMouseEvent* event) {
         //GameState::removeDrawnPath();
     }
     if (GameState::pair->getSecond() != nullptr) {
-        GameState::pair->getSecond()->setBrush(QColor(0xB4C8C8));
+        GameState::pair->getSecond()->setBrush(QColor(0xB4C8C8)); // #B4C8C8
     }
-    if (topItem == this) {
+    if (((MainWindow::map->currentTurn == MainWindow::map->Turn::Player1 && this->getOwner() == Tank::Player1) ||
+        (MainWindow::map->currentTurn == MainWindow::map->Turn::Player2 && this->getOwner() == Tank::Player2)) &&
+        topItem == this) {
         qDebug() << "Tank clicked at: " << nodeIndexPos << "\n";
 
         auto* colorEffect = new QGraphicsColorizeEffect();
@@ -164,6 +165,27 @@ void Tank::instaKill()
 
 void Tank::reduceHealth()
 {
+    if (owner == Player1) {
+        auto* current = GameState::player2->activatedPowerUp->getHead();
+        while (current != nullptr) {
+            if (current->data->getPowerUpType() == PowerUp::AttackPower) {
+                instaKill();
+                tankPercentagePlyrData->setText(QString::number(health) + "%");
+                return;
+            }
+            current = current->next;
+        }
+    } else if (owner == Player2) {
+        auto* current = GameState::player1->activatedPowerUp->getHead();
+        while (current != nullptr) {
+            if (current->data->getPowerUpType() == PowerUp::AttackPower) {
+                instaKill();
+                tankPercentagePlyrData->setText(QString::number(health) + "%");
+                return;
+            }
+            current = current->next;
+        }
+    }
     if (tankType == BlueTank || tankType == LightBlueTank) {
         health -= 25;
         tankPercentagePlyrData->setText(QString::number(health) + "%");
