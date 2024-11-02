@@ -34,7 +34,7 @@ public:
 
     void endTurn();
 
-    void drawPath(SinglyLinkedList<int>* list, int startX, int startY);
+    void drawPath(SinglyLinkedList<int>* list, int startX, int startY, bool move);
     QTimer* timer = nullptr;
 
     void moveTank(SinglyLinkedList<DataPair<QPoint, QPoint>*>* pointList);

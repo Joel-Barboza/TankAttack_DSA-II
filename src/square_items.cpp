@@ -55,7 +55,7 @@ void SquareItem::mousePressEvent(QGraphicsSceneMouseEvent* event) {
 
                 int startPointX = GameState::pair->getFirst()->getTopLeftX()+25;
                 int startPointY = GameState::pair->getFirst()->getTopLeftY()+25;
-                MainWindow::map->drawPath(path, startPointX, startPointY);
+                MainWindow::map->drawPath(path, startPointX, startPointY, true);
                 setBrush(QColor(0x903333));
             }
         }

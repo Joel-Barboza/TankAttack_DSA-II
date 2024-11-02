@@ -100,6 +100,20 @@ void Tank::mousePressEvent(QGraphicsSceneMouseEvent* event) {
         colorEffect->setColor(Qt::red);
         setGraphicsEffect(colorEffect);
         GameState::selectTank(this, nodeIndexPos);
+    } else if (event->button() == Qt::RightButton){
+        qDebug() << "shoooooot" << nodeIndexPos << "\n";
+        // GameState::adjMatrix->aStar(GameState::pair->getFirst()->getNodeIndexPos(), nodeIndexPos-1);
+        // SinglyLinkedList<int>* path = GameState::adjMatrix->getPathTo(nodeIndexPos-1);
+        // path->print();
+        // int startPointX = GameState::pair->getFirst()->getTopLeftX()+25;
+        // int startPointY = GameState::pair->getFirst()->getTopLeftY()+25;
+        // MainWindow::map->drawPath(path, startPointX, startPointY, false);
+        // QGraphicsLineItem* line = MainWindow::map->createLine(this->getTopLeftX()+25, this->getTopLeftY()+25, this->getTopLeftX()-25, this->getTopLeftY()+25);
+
+        // QPen pen(QColor("#2c2c99"), 5);
+        // pen.setStyle(Qt::DashLine);
+        // line->setPen(pen);
+        // GameState::pathLinesList->insert(line);
     }
     QGraphicsPixmapItem::mousePressEvent(event);
 }

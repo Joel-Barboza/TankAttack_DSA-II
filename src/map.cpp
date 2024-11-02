@@ -102,7 +102,7 @@ void Map::endTurn() {
     }
 }
 
-void Map::drawPath(SinglyLinkedList<int>* list, int startX, int startY){
+void Map::drawPath(SinglyLinkedList<int>* list, int startX, int startY, bool move){
 
     if (timer) return;
 
@@ -162,7 +162,9 @@ void Map::drawPath(SinglyLinkedList<int>* list, int startX, int startY){
             timer->stop();
             timer->deleteLater();
             timer = nullptr;
-            moveTank(pointList);
+            if (move) {
+                moveTank(pointList);
+            }
         }
     });
 
