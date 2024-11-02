@@ -16,10 +16,18 @@ public:
         LightBlueTank
     };
 
-    Tank(TankType type, Map* parent);
+    enum Player {
+        Player1,
+        Player2
+    };
+
+    Tank(TankType type, Player owner, Map* parent);
 
     int getHealth();
     TankType getTankType();
+
+    Player getOwner();
+
     int getNodeIndexPos();
     void setNodeIndexPos(int nodeIndex);
     int getTopLeftX();
@@ -37,6 +45,7 @@ private:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     int health = 100;
     TankType tankType;
+    Player owner;
     int nodeIndexPos;
     int topLeftX;
     int topLeftY;

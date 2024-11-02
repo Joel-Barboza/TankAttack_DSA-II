@@ -5,7 +5,7 @@
 
 #include <QGraphicsColorizeEffect>
 
-Tank::Tank(TankType type, Map* parent) : QGraphicsPixmapItem(nullptr), tankType(type) {
+Tank::Tank(TankType type, Player owner, Map* parent) : QGraphicsPixmapItem(nullptr), tankType(type), owner(owner) {
     QPixmap* tankImage = nullptr;
     switch (type) {
     case RedTank:
@@ -39,6 +39,9 @@ int Tank::getHealth() { return health; }
 
 Tank::TankType Tank::getTankType() { return tankType; }
 
+Tank::Player Tank::getOwner(){
+    return owner;
+}
 
 int Tank::getNodeIndexPos() { return nodeIndexPos; }
 

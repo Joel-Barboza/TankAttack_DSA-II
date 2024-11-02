@@ -10,6 +10,10 @@
 
 
 Map::Map(QWidget *parent) {
+    currentTurn = Turn::Player1;
+
+    hasExtraTurn = false;
+
     createGrid(GameState::rows, GameState::columns, GameState::adjMatrix);
 
     auto* p1Current = GameState::player1TankList->getHead();
@@ -56,48 +60,71 @@ QGraphicsLineItem* Map::createLine(int x1, int y1, int x2, int y2) {
 }
 
 
+void Map::endTurn() {
+    if (hasExtraTurn) {
+        hasExtraTurn = false;
+        return;
+    }
+
+    if (currentTurn == Turn::Player1) {
+        currentTurn = Turn::Player2;
+    } else {
+        currentTurn = Turn::Player1;
+    }
+}
+
 void Map::drawPath(SinglyLinkedList<int>* list, int startX, int startY){
 
     if (timer) return;
+
+    Tank* currentTank = GameState::pair->getFirst();
+
+    if ((currentTurn == Turn::Player1 && currentTank->getOwner() != Tank::Player1) ||
+        (currentTurn == Turn::Player2 && currentTank->getOwner() != Tank::Player2)) {
+        qDebug() << "El tanque no pertenece al jugador en turno.";
+        return;
+    }
 
     SinglyLinkedList<DataPair<QPoint, QPoint>*>* pointList = new SinglyLinkedList<DataPair<QPoint, QPoint>*>();
     auto* current = list->getHead();
     int previousX = startX;
     int previousY = startY;
+
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, [=]() mutable {
-        if (current->next != nullptr) {
-
+        if (current && current->next != nullptr) {
             QPen pen(QColor("#2c2c99"), 5);
             pen.setStyle(Qt::DashLine);
             DataPair<QPoint, QPoint>* pointsToStraightLine = new DataPair<QPoint, QPoint>();
+
+            // Lógica para determinar la dirección del movimiento y crear líneas
             if (current->data == current->next->data - 1) {
-                QGraphicsLineItem* newLine = createLine(previousX, previousY, previousX+50, previousY);
+                QGraphicsLineItem* newLine = createLine(previousX, previousY, previousX + 50, previousY);
                 newLine->setPen(pen);
                 GameState::pathLinesList->insert(newLine);
                 pointsToStraightLine->setFirst(QPoint(previousX, previousY));
-                pointsToStraightLine->setSecond(QPoint(previousX+50, previousY));
+                pointsToStraightLine->setSecond(QPoint(previousX + 50, previousY));
                 previousX += 50;
             } else if (current->data == current->next->data + 1) {
-                QGraphicsLineItem* newLine = createLine(previousX, previousY, previousX-50, previousY);
+                QGraphicsLineItem* newLine = createLine(previousX, previousY, previousX - 50, previousY);
                 newLine->setPen(pen);
                 GameState::pathLinesList->insert(newLine);
-                pointsToStraightLine->setFirst(*new QPoint(previousX, previousY));
-                pointsToStraightLine->setSecond(*new QPoint(previousX-50, previousY));
+                pointsToStraightLine->setFirst(QPoint(previousX, previousY));
+                pointsToStraightLine->setSecond(QPoint(previousX - 50, previousY));
                 previousX -= 50;
             } else if (current->data == current->next->data + GameState::columns) {
-                QGraphicsLineItem* newLine = createLine(previousX, previousY, previousX, previousY-50);
+                QGraphicsLineItem* newLine = createLine(previousX, previousY, previousX, previousY - 50);
                 newLine->setPen(pen);
                 GameState::pathLinesList->insert(newLine);
-                pointsToStraightLine->setFirst(*new QPoint(previousX, previousY));
-                pointsToStraightLine->setSecond(*new QPoint(previousX, previousY-50));
+                pointsToStraightLine->setFirst(QPoint(previousX, previousY));
+                pointsToStraightLine->setSecond(QPoint(previousX, previousY - 50));
                 previousY -= 50;
             } else if (current->data == current->next->data - GameState::columns) {
-                QGraphicsLineItem* newLine = createLine(previousX, previousY, previousX, previousY+50);
+                QGraphicsLineItem* newLine = createLine(previousX, previousY, previousX, previousY + 50);
                 newLine->setPen(pen);
                 GameState::pathLinesList->insert(newLine);
-                pointsToStraightLine->setFirst(*new QPoint(previousX, previousY));
-                pointsToStraightLine->setSecond(*new QPoint(previousX, previousY+50));
+                pointsToStraightLine->setFirst(QPoint(previousX, previousY));
+                pointsToStraightLine->setSecond(QPoint(previousX, previousY + 50));
                 previousY += 50;
             }
             pointList->insert(pointsToStraightLine);
@@ -114,38 +141,53 @@ void Map::drawPath(SinglyLinkedList<int>* list, int startX, int startY){
 };
 
 
-void Map::moveTank(SinglyLinkedList<DataPair<QPoint, QPoint>*>* pointList){
+void Map::moveTank(SinglyLinkedList<DataPair<QPoint, QPoint>*>* pointList) {
     auto* current = pointList->getHead();
-    Tank* tank= GameState::pair->getFirst();
-    auto* pathLinesListNode = GameState::pathLinesList->getHead();
-    QTimer* timer2 = new QTimer(this);
+    Tank* tank = GameState::pair->getFirst();
 
-    connect(timer2, &QTimer::timeout, this, [=]() mutable {
-        if (current != nullptr) {
-            if (!timer) {
-                moveTankToNeighbor(current->data->getFirst(), current->data->getSecond());
-                delete pathLinesListNode->data;
+    // Verificar si es el turno del jugador correcto
+    if ((currentTurn == Turn::Player1 && tank->getOwner() == Tank::Player1) ||
+        (currentTurn == Turn::Player2 && tank->getOwner() == Tank::Player2)) {
 
-                current = current->next;
-                pathLinesListNode = pathLinesListNode->next;
+        auto* pathLinesListNode = GameState::pathLinesList->getHead();
+        QTimer* timer2 = new QTimer(this);
+
+        connect(timer2, &QTimer::timeout, this, [=]() mutable {
+            if (current != nullptr) {
+                if (!timer) {
+                    moveTankToNeighbor(current->data->getFirst(), current->data->getSecond());
+                    delete pathLinesListNode->data;
+
+                    current = current->next;
+                    pathLinesListNode = pathLinesListNode->next;
+                }
+
+            } else {
+                timer2->stop();
+                timer2->deleteLater();
+                timer2 = nullptr;
+
+                // Al finalizar el movimiento, cambiar el turno
+                if (currentTurn == Turn::Player1) {
+                    currentTurn = Turn::Player2;
+                } else {
+                    currentTurn = Turn::Player1;
+                }
+
+                GameState::adjMatrix->setFreeOfTanks(tank->getNodeIndexPos());
+                tank->setGridPosition(GameState::pair->getSecond()->squareId / GameState::columns,
+                                      GameState::pair->getSecond()->squareId % GameState::columns);
+                GameState::adjMatrix->setOccupiedByTank(tank->getNodeIndexPos());
+                GameState::pathLinesList->clear();
+                GameState::pair->getSecond()->setBrush(QColor("#B4C8C8"));
             }
+        });
 
-        } else {
-            timer2->stop();
-            timer2->deleteLater();
-            timer2 = nullptr;
-            GameState::adjMatrix->setFreeOfTanks(tank->getNodeIndexPos());
-            tank->setGridPosition(GameState::pair->getSecond()->squareId/GameState::columns, GameState::pair->getSecond()->squareId%GameState::columns);
-            GameState::adjMatrix->setOccupiedByTank(tank->getNodeIndexPos());
-            GameState::pathLinesList->clear();
-            GameState::pair->getSecond()->setBrush(QColor("#B4C8C8"));
-
-        }
-
-    });
-
-    timer2->start(00);
-};
+        timer2->start(00);
+    } else {
+        qDebug() << "No es el turno del jugador para mover este tanque.";
+    }
+}
 
 void Map::moveTankToNeighbor(QPoint startPoint, QPoint endPoint){
     Tank* tank= GameState::pair->getFirst();

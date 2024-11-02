@@ -72,19 +72,19 @@ void GameState::initializeTanks() {
     //--------------------------------------
     //           Player 1
     //--------------------------------------
-    Tank* frontLineBlue = new Tank(Tank::BlueTank, MainWindow::map);
+    Tank* frontLineBlue = new Tank(Tank::BlueTank, Tank::Player1, MainWindow::map);
     frontLineBlue->setGridPosition(2, 3);
     player1TankList->insert(frontLineBlue);
 
-    Tank* backLineRed = new Tank(Tank::RedTank, MainWindow::map);
+    Tank* backLineRed = new Tank(Tank::RedTank, Tank::Player1, MainWindow::map);
     backLineRed->setGridPosition(4, 1);
     player1TankList->insert(backLineRed);
 
-    Tank* backLineBlue = new Tank(Tank::BlueTank, MainWindow::map);
+    Tank* backLineBlue = new Tank(Tank::BlueTank, Tank::Player1, MainWindow::map);
     backLineBlue->setGridPosition(9, 1);
     player1TankList->insert(backLineBlue);
 
-    Tank* frontLineRed = new Tank(Tank::RedTank, MainWindow::map);
+    Tank* frontLineRed = new Tank(Tank::RedTank, Tank::Player1, MainWindow::map);
     frontLineRed->setGridPosition(11, 3);
     player1TankList->insert(frontLineRed);
 
@@ -92,19 +92,19 @@ void GameState::initializeTanks() {
     //--------------------------------------
     //           Player 2
     //--------------------------------------
-    Tank* frontLineLightBlue = new Tank(Tank::LightBlueTank, MainWindow::map);
+    Tank* frontLineLightBlue = new Tank(Tank::LightBlueTank, Tank::Player2, MainWindow::map);
     frontLineLightBlue->setGridPosition(2, 20);
     player2TankList->insert(frontLineLightBlue);
 
-    Tank* backLineYellow = new Tank(Tank::YellowTank, MainWindow::map);
+    Tank* backLineYellow = new Tank(Tank::YellowTank, Tank::Player2, MainWindow::map);
     backLineYellow->setGridPosition(4, 22);
     player2TankList->insert(backLineYellow);
 
-    Tank* backLineLightBlue = new Tank(Tank::LightBlueTank, MainWindow::map);
+    Tank* backLineLightBlue = new Tank(Tank::LightBlueTank, Tank::Player2, MainWindow::map);
     backLineLightBlue->setGridPosition(9, 22);
     player2TankList->insert(backLineLightBlue);
 
-    Tank* frontLineYellow = new Tank(Tank::YellowTank, MainWindow::map);
+    Tank* frontLineYellow = new Tank(Tank::YellowTank, Tank::Player2, MainWindow::map);
     frontLineYellow->setGridPosition(11, 20);
     player2TankList->insert(frontLineYellow);
 
