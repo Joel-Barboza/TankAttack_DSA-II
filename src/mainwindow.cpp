@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QMessageBox>
+#include <QKeyEvent>
 
 
 
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 {
     ui->setupUi(this);
+    this->installEventFilter(this);
 
 
     QVBoxLayout* layout = new QVBoxLayout;
@@ -113,11 +115,46 @@ void MainWindow::updateTimer() {
     }
 
 }
+bool MainWindow::eventFilter(QObject* obj, QEvent* event) {
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+
+        if (keyEvent->key() == Qt::Key_Shift) {
+            if (map->currentTurn == map->Turn::Player1) {
+                qDebug() << "Shift key pressed!";
+                // PowerUp* nextPowerUp = GameState::player1->powerUpQueue->getFront().value_or(nullptr);
+                // if (!nextPowerUp) return true;
+                // // GameState::player1->activatedPowerUp->insert(nextPowerUp);
+                // if (nextPowerUp->getPowerUpType() == PowerUp::DoubleTurn) {
+                //     map->hasExtraTurn = true;
+                // } else {
+                //     map->endTurn();
+                // }
+                // playerData->spendPlayer1PwrUp();
+            } else if (map->currentTurn == map->Turn::Player2) {
+                qDebug() << "Shift key pressed!";
+                // PowerUp* nextPowerUp = GameState::player2->powerUpQueue->getFront().value_or(nullptr);
+                // if (!nextPowerUp) return true;
+                // // GameState::player2->activatedPowerUp->insert(nextPowerUp);
+                // if (nextPowerUp->getPowerUpType() == PowerUp::DoubleTurn) {
+                //     map->hasExtraTurn = true;
+                // } else {
+                //     map->endTurn();
+                // }
+                // playerData->spendPlayer2PwrUp();
+            }
+            return true;
+        }
+    }
+
+    return QMainWindow::eventFilter(obj, event);
+}
 
 
 Map* MainWindow::map = nullptr;
 
 MainWindow::~MainWindow()
 {
+    this->removeEventFilter(this);
     delete ui;
 }

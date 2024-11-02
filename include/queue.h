@@ -3,6 +3,7 @@
 
 #include <climits>
 #include <iostream>
+#include <optional>
 
 template<typename T>
 class Queue {
@@ -49,20 +50,20 @@ public:
         --size;
     }
 
-    T getFront() {
+    std::optional<T> getFront() {
 
         if (this->isEmpty()) {
             std::cout << "Queue is empty\n";
-            return INT_MIN;
+            return std::nullopt;
         }
         return front->data;
     }
 
-    T getRear() {
+    std::optional<T> getRear() {
 
         if (this->isEmpty()) {
             std::cout << "Queue is empty\n";
-            return INT_MIN;
+            return std::nullopt;
         }
 
         return rear->data;
@@ -70,6 +71,10 @@ public:
 
     int getSize() {
         return size;
+    }
+
+    auto* getFrontNode () {
+        return front;
     }
 private:
     struct Node

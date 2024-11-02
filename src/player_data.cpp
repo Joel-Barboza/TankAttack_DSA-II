@@ -6,6 +6,17 @@ PlayerData::PlayerData(QWidget *parent) : QWidget(parent) {
     setupFooter();
 }
 
+void PlayerData::spendPlayer1PwrUp()
+{
+    std::cout << "asdf\n";
+}
+
+void PlayerData::spendPlayer2PwrUp()
+{
+    std::cout << "asdf\n";
+
+}
+
 // Function to create the footer layout
 void PlayerData::setupFooter() {
     setFixedSize(1212, 125);

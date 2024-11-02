@@ -18,6 +18,7 @@ public:
 
     CustomLabel *getPowerUpImg() const;
 
+
 private:
     PowerUpType powerUpType;
 

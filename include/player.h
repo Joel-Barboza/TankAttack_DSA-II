@@ -12,6 +12,7 @@ public:
     Player();
     SinglyLinkedList<Tank*>* tankList = new SinglyLinkedList<Tank*>();
     Queue<PowerUp*>* powerUpQueue = new Queue<PowerUp*>();
+    SinglyLinkedList<PowerUp*>* activatedPowerUp = new SinglyLinkedList<PowerUp*>();
 };
 
 #endif // PLAYER_H

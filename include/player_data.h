@@ -15,6 +15,8 @@ public:
     explicit PlayerData(QWidget *parent = nullptr);
     QGridLayout* p1Layout = nullptr;
     QGridLayout* p2Layout = nullptr;
+    void spendPlayer1PwrUp();
+    void spendPlayer2PwrUp();
 
 private:
     QLabel *infoLabel;

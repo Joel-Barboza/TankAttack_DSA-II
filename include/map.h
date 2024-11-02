@@ -22,7 +22,7 @@ class Map : public QGraphicsScene {
 
 public:
 
-    enum class Turn {
+    enum Turn {
         Player1,
         Player2
     };

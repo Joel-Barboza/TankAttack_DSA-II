@@ -23,6 +23,8 @@ public:
     static Map* map;
     PlayerData* playerData = nullptr;
 
+protected:
+    bool eventFilter(QObject* obj, QEvent* event) override;
 private:
     Ui::MainWindow *ui;
     QGraphicsView *view;
@@ -31,11 +33,7 @@ private:
     int secondsElapsed;
     // Label para el tiempo
     QLabel *timerLabel;
-
-private:
     QTimer* timer;
-
-private:
     QString winningPlayer;
 
 private slots:

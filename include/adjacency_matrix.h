@@ -170,7 +170,7 @@ void AdjacencyMatrix<T>::bfs(int src)
 
     int vis;
     while (!q->isEmpty()) {
-        vis = q->getFront();
+        vis = *q->getFront();
         q->dequeue();
 
         for (int i = 0; i < this->matrixOrder; i++) {
