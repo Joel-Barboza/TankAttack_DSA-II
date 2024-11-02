@@ -53,6 +53,8 @@ public:
     void bfs(int src);
     int getMatrixOrder();
 
+    bool allPlacesAreReachable(int src);
+
 private:
     struct Node {
         int weight;
@@ -185,6 +187,25 @@ template<typename T>
 int AdjacencyMatrix<T>::getMatrixOrder()
 {
     return matrixOrder;
+}
+
+template<typename T>
+bool AdjacencyMatrix<T>::allPlacesAreReachable(int src)
+{
+    auto* current = previousNode->getHead();
+    int index = 0;
+    while (current != nullptr) {
+        if (index != src){
+
+            if (current->data == -1 && !getIsUnreachable(index)) {
+                return false;
+            }
+        }
+
+        ++index;
+        current = current->next;
+    }
+    return true;
 }
 
 template<typename T>
@@ -324,6 +345,7 @@ void AdjacencyMatrix<T>::resetAllWeigths() {
         while (currentColumn != nullptr) {
             currentColumn->weight = 0;//std::numeric_limits<int>::max();
             currentColumn->isUnreachable = false;
+            currentColumn->isTank = false;
             currentColumn = currentColumn->right;
         }
         currentRowStart = currentRowStart->down;

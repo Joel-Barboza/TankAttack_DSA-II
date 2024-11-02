@@ -13,8 +13,8 @@
 Map::Map(QWidget *parent) {
     createGrid(GameState::rows, GameState::columns, GameState::adjMatrix);
 
-    auto* p1Current = GameState::player1TankList->getHead();
-    auto* p2Current = GameState::player2TankList->getHead();
+    auto* p1Current = GameState::player1->tankList->getHead();
+    auto* p2Current = GameState::player2->tankList->getHead();
     while (p1Current != nullptr) {
 
         this->addItem(p1Current->data);
@@ -252,8 +252,8 @@ void Map::shootBullet(QPointF endPoint) {
                     bulletOutOfTank = true;
                 }
             }
-            if (((GameState::player2TankList->find(dynamic_cast<Tank*>(item)) && GameState::player1TankList->find(shootingTank))||      // shoots player 1, no damage for his own tank
-                 (GameState::player1TankList->find(dynamic_cast<Tank*>(item)) && GameState::player2TankList->find(shootingTank))) ||    // shoots player 2, no damage for his own tank
+            if (((GameState::player2->tankList->find(dynamic_cast<Tank*>(item)) && GameState::player1->tankList->find(shootingTank))||      // shoots player 1, no damage for his own tank
+                 (GameState::player1->tankList->find(dynamic_cast<Tank*>(item)) && GameState::player2->tankList->find(shootingTank))) ||    // shoots player 2, no damage for his own tank
                 (bulletOutOfTank && item == shootingTank)                                                                               // can shoot itself
                 ) {
                 shootingTank->rotateNorth();

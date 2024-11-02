@@ -7,6 +7,7 @@
 
 Tank::Tank(TankType type, Map* parent) : QGraphicsPixmapItem(nullptr), tankType(type) {
     QPixmap* tankImage = nullptr;
+
     switch (type) {
     case RedTank:
         tankImage = new QPixmap("../../images/red_tank.png");
@@ -32,7 +33,15 @@ Tank::Tank(TankType type, Map* parent) : QGraphicsPixmapItem(nullptr), tankType(
     setZValue(100);
 
     setTransformOriginPoint(boundingRect().center());
-    //setTransformOriginPoint(QPoint(getTopLeftX()+25, getTopLeftY()+25));
+
+    //p1TankRed1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    tankImgPlyrData = new CustomLabel(this);
+    tankImgPlyrData->setPixmap(tankImage->scaled(25, 25, Qt::KeepAspectRatio));
+    tankImgPlyrData->setContentsMargins(0, 0, 0, 0);
+    tankImgPlyrData->setStyleSheet("padding: 0px; border: 1px solid black; border-right: 0px");
+    tankPercentagePlyrData = new CustomLabel(QString::number(health) + "%", this);
+    tankPercentagePlyrData->setContentsMargins(0, 0, 0, 0);
+    tankPercentagePlyrData->setStyleSheet("padding: 0px; border: 1px solid black; border-left: 0px; color: black;");
 }
 
 int Tank::getHealth() { return health; }
@@ -89,6 +98,14 @@ void Tank::mousePressEvent(QGraphicsSceneMouseEvent* event) {
         GameState::selectTank(this, nodeIndexPos);
     }
     QGraphicsPixmapItem::mousePressEvent(event);
+}
+
+CustomLabel* Tank::getTankPercentagePlyrData() {
+    return tankPercentagePlyrData;
+}
+
+CustomLabel* Tank::getTankImgPlyrData() {
+    return tankImgPlyrData;
 };
 
 void Tank::rotateNorth(){
@@ -119,25 +136,40 @@ void Tank::setCenteredPos(int x, int y) {
 void Tank::instaKill()
 {
     this->health = 0;
-    if (GameState::player1TankList->find(this)) {
-        GameState::player1TankList->remove(this);
-        delete this;
+    auto* colorEffect1 = new QGraphicsColorizeEffect();
+    auto* colorEffect2 = new QGraphicsColorizeEffect();
+    colorEffect1->setColor(Qt::red);
+    colorEffect2->setColor(Qt::red);
+    if (SinglyLinkedList<Tank*>::Node* foundTank = GameState::player1->tankList->find(this)) {
+        foundTank->data->tankPercentagePlyrData->setGraphicsEffect(colorEffect1);
+        foundTank->data->tankImgPlyrData->setGraphicsEffect(colorEffect2);
+        foundTank->data->tankPercentagePlyrData->setTankReference(nullptr);
+        foundTank->data->tankImgPlyrData->setTankReference(nullptr);
+        GameState::player1->tankList->remove(this);
+        GameState::adjMatrix->setFreeOfTanks(nodeIndexPos);
     }
-    if (GameState::player2TankList->find(this)) {
-        GameState::player2TankList->remove(this);
-        delete this;
+    if (SinglyLinkedList<Tank*>::Node* foundTank = GameState::player2->tankList->find(this)) {
+        foundTank->data->tankPercentagePlyrData->setGraphicsEffect(colorEffect1);
+        foundTank->data->tankImgPlyrData->setGraphicsEffect(colorEffect2);
+        foundTank->data->tankPercentagePlyrData->setTankReference(nullptr);
+        foundTank->data->tankImgPlyrData->setTankReference(nullptr);
+        GameState::player2->tankList->remove(this);
+        GameState::adjMatrix->setFreeOfTanks(nodeIndexPos);
     }
+    delete this;
 }
 
 void Tank::reduceHealth()
 {
     if (tankType == BlueTank || tankType == LightBlueTank) {
         health -= 25;
+        tankPercentagePlyrData->setText(QString::number(health) + "%");
         if (health <= 0){
             instaKill();
         }
     } else if (tankType == YellowTank || tankType == RedTank) {
         health -= 50;
+        tankPercentagePlyrData->setText(QString::number(health) + "%");
         if (health <= 0){
             instaKill();
         }

@@ -8,12 +8,29 @@ GameState::GameState()
     // }
     // sf->printAdjMatrix();
 
-    for (int i = 0; i < adjMatrix->getMatrixOrder(); ++i) {
-        adjMatrix->addEdgesToNeighbor(i);
-    }
+    // for (int i = 0; i < adjMatrix->getMatrixOrder(); ++i) {
+    //     adjMatrix->addEdgesToNeighbor(i);
+    // }
+    // adjMatrix->placeObstacles(player1->tankList, player2->tankList);
+    // adjMatrix->dijkstra(src);
     initializeTanks();
-    adjMatrix->placeObstacles(player1TankList, player2TankList);
-    adjMatrix->bfs(0);
+    int src = 1;
+    bool reachableEverywhere = false;
+    while (!reachableEverywhere) {
+        adjMatrix->resetAllWeigths();
+        adjMatrix->occupiedCells->clear();
+        for (int i = 0; i < adjMatrix->getMatrixOrder(); i++){
+            adjMatrix->previousNode->changeValue(0, -1);
+        }
+        for (int i = 0; i < adjMatrix->getMatrixOrder(); ++i) {
+            adjMatrix->addEdgesToNeighbor(i);
+        }
+        //adjMatrix->printAdjMatrix();
+        adjMatrix->placeObstacles(player1->tankList, player2->tankList);
+        adjMatrix->dijkstra(src);
+        reachableEverywhere = adjMatrix->allPlacesAreReachable(src);
+    }
+    //adjMatrix->previousNode->print();
 
 }
 
@@ -30,8 +47,13 @@ AdjacencyMatrix<int>* GameState::adjMatrix  = new AdjacencyMatrix<int>(rows,colu
 
 SinglyLinkedList<QGraphicsLineItem*>* GameState::pathLinesList = new SinglyLinkedList<QGraphicsLineItem*>();
 
-SinglyLinkedList<Tank*>* GameState::player1TankList = new SinglyLinkedList<Tank*>();
-SinglyLinkedList<Tank*>* GameState::player2TankList = new SinglyLinkedList<Tank*>();
+// SinglyLinkedList<Tank*>* GameState::player1TankList = new SinglyLinkedList<Tank*>();
+// SinglyLinkedList<Tank*>* GameState::player2TankList = new SinglyLinkedList<Tank*>();
+
+Player* GameState::player1 = new Player();
+Player* GameState::player2 = new Player();
+
+
 
 SinglyLinkedList<SquareItem*>* GameState::obstacleList = new SinglyLinkedList<SquareItem*>();
 
@@ -82,19 +104,19 @@ void GameState::initializeTanks() {
     //--------------------------------------
     Tank* frontLineBlue = new Tank(Tank::BlueTank, MainWindow::map);
     frontLineBlue->setGridPosition(2, 3);
-    player1TankList->insert(frontLineBlue);
+    player1->tankList->insert(frontLineBlue);
 
     Tank* backLineRed = new Tank(Tank::RedTank, MainWindow::map);
     backLineRed->setGridPosition(4, 1);
-    player1TankList->insert(backLineRed);
+    player1->tankList->insert(backLineRed);
 
     Tank* backLineBlue = new Tank(Tank::BlueTank, MainWindow::map);
     backLineBlue->setGridPosition(9, 1);
-    player1TankList->insert(backLineBlue);
+    player1->tankList->insert(backLineBlue);
 
     Tank* frontLineRed = new Tank(Tank::RedTank, MainWindow::map);
     frontLineRed->setGridPosition(11, 3);
-    player1TankList->insert(frontLineRed);
+    player1->tankList->insert(frontLineRed);
 
 
     //--------------------------------------
@@ -102,19 +124,19 @@ void GameState::initializeTanks() {
     //--------------------------------------
     Tank* frontLineLightBlue = new Tank(Tank::LightBlueTank, MainWindow::map);
     frontLineLightBlue->setGridPosition(2, 20);
-    player2TankList->insert(frontLineLightBlue);
+    player2->tankList->insert(frontLineLightBlue);
 
     Tank* backLineYellow = new Tank(Tank::YellowTank, MainWindow::map);
     backLineYellow->setGridPosition(4, 22);
-    player2TankList->insert(backLineYellow);
+    player2->tankList->insert(backLineYellow);
 
     Tank* backLineLightBlue = new Tank(Tank::LightBlueTank, MainWindow::map);
     backLineLightBlue->setGridPosition(9, 22);
-    player2TankList->insert(backLineLightBlue);
+    player2->tankList->insert(backLineLightBlue);
 
     Tank* frontLineYellow = new Tank(Tank::YellowTank, MainWindow::map);
     frontLineYellow->setGridPosition(11, 20);
-    player2TankList->insert(frontLineYellow);
+    player2->tankList->insert(frontLineYellow);
 
 
 }

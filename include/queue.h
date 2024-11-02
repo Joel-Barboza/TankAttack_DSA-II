@@ -23,11 +23,13 @@ public:
 
         if (this->isEmpty()) {
             front = rear = new_node;
+            ++size;
             return;
         }
 
         rear->next = new_node;
         rear = new_node;
+        ++size;
     }
 
     void dequeue() {
@@ -44,6 +46,7 @@ public:
             rear = nullptr;
 
         delete temp;
+        --size;
     }
 
     T getFront() {
@@ -64,15 +67,20 @@ public:
 
         return rear->data;
     }
+
+    int getSize() {
+        return size;
+    }
 private:
     struct Node
     {
         T data;
         Node* next;
-        Node(int new_data): data(new_data), next(nullptr){}
+        Node(T new_data): data(new_data), next(nullptr){}
     };
     Node* front;
     Node* rear;
+    int size = 0;
 };
 
 

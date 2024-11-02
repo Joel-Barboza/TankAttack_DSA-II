@@ -13,11 +13,13 @@ class PlayerData : public QWidget {
 
 public:
     explicit PlayerData(QWidget *parent = nullptr);
+    QGridLayout* p1Layout = nullptr;
+    QGridLayout* p2Layout = nullptr;
 
 private:
-    QLabel *infoLabel;          // To show player information
-    QPushButton *powerUpButton; // To represent a power-up button
-    void setupFooter();  // Helper function to setup the footer layout
+    QLabel *infoLabel;
+    QPushButton *powerUpButton;
+    void setupFooter();
 };
 
 #endif // PLAYER_DATA_H

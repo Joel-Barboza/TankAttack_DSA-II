@@ -85,6 +85,22 @@ void MainWindow::updateTimer() {
     int seconds = secondsElapsed % 60;
     timerLabel->setText(QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0')));
 
+    if (secondsElapsed%30 == 0 && 0 < secondsElapsed  && secondsElapsed != 300 ) {
+        int p1QueueSize = GameState::player1->powerUpQueue->getSize();
+        int p2QueueSize = GameState::player2->powerUpQueue->getSize();
+        if (p1QueueSize < 8) {
+            PowerUp* p1PowerUp = new PowerUp();
+            GameState::player1->powerUpQueue->enqueue(p1PowerUp);
+            playerData->p1Layout->addWidget(p1PowerUp->getPowerUpImg(), 2, p1QueueSize);
+        }
+
+        if (p2QueueSize < 8) {
+            PowerUp* p2PowerUp = new PowerUp();
+            GameState::player2->powerUpQueue->enqueue(p2PowerUp);
+            playerData->p2Layout->addWidget(p2PowerUp->getPowerUpImg(), 2, p2QueueSize);
+        }
+    }
+
     // Tiempo termina a los 5min
     if (secondsElapsed >= 300){
         timer->stop();
