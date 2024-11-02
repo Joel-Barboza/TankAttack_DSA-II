@@ -6,6 +6,8 @@
 #include <include/mainwindow.h>
 #include <include/tank.h>
 #include <include/data_pair.h>
+#include <include/player.h>
+
 class SquareItem;
 class Map;
 
@@ -22,10 +24,13 @@ public:
     //static SinglyLinkedList<SquareItem*>* pair;
     static SinglyLinkedList<QGraphicsLineItem*>* pathLinesList;
     static void removeDrawnPath();
-    static SinglyLinkedList<Tank*>* player1TankList;
-    static SinglyLinkedList<Tank*>* player2TankList;
+    // static SinglyLinkedList<Tank*>* player1TankList;
+    // static SinglyLinkedList<Tank*>* player2TankList;
+    static Player* player1;
+    static Player* player2;
     static void selectTank(Tank *square, int squareId);
     static void selectEndPoint(SquareItem *square, int squareId);
+    static SinglyLinkedList<SquareItem*>* obstacleList;
 private:
     void initializeTanks();
 

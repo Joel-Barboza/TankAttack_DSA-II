@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setContentsMargins(0,0,0,0);
+    layout->setSpacing(3);
 
 
     view = new QGraphicsView(this);
@@ -36,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     map = new Map(this);
-    map->setBackgroundBrush(QColor("blue"));
+    map->setBackgroundBrush(QColor(0x9BB6C4)); // #9BB6C4
 
     statusBar()->hide();
 
@@ -44,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     view->setScene(map);
 
 
-    view->setFixedSize(1200, 900);
+    view->setFixedSize(1212, 900);
 
 
     layout->addWidget(view);
@@ -60,7 +61,8 @@ MainWindow::MainWindow(QWidget *parent)
     // Crea un Label para el cronometro
     timerLabel = new QLabel("00:00");
     timerLabel->setAlignment(Qt::AlignCenter);
-    timerLabel->setStyleSheet("background-color: lightblue; font-size: 24px; font-weight: bold; border: none;");
+    timerLabel->setStyleSheet("background-color: lightblue; font-size: 24px; font-weight: bold; color: black;");
+    timerLabel->setContentsMargins(0,0,0,0);
     layout->addWidget(timerLabel);
 
 
@@ -69,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(centralWidget);
     centralWidget->layout()->setContentsMargins(0, 0, 0, 0);
 
-    setFixedSize(1200, 1000);
+    setFixedSize(1205, 1000);
 
     // Configura el QTimer para el cronometro
     //QTimer* timer = new QTimer(this);
@@ -82,6 +84,22 @@ void MainWindow::updateTimer() {
     int minutes = secondsElapsed / 60;
     int seconds = secondsElapsed % 60;
     timerLabel->setText(QString("%1:%2").arg(minutes, 2, 10, QChar('0')).arg(seconds, 2, 10, QChar('0')));
+
+    if (secondsElapsed%30 == 0 && 0 < secondsElapsed  && secondsElapsed != 300 ) {
+        int p1QueueSize = GameState::player1->powerUpQueue->getSize();
+        int p2QueueSize = GameState::player2->powerUpQueue->getSize();
+        if (p1QueueSize < 8) {
+            PowerUp* p1PowerUp = new PowerUp();
+            GameState::player1->powerUpQueue->enqueue(p1PowerUp);
+            playerData->p1Layout->addWidget(p1PowerUp->getPowerUpImg(), 2, p1QueueSize);
+        }
+
+        if (p2QueueSize < 8) {
+            PowerUp* p2PowerUp = new PowerUp();
+            GameState::player2->powerUpQueue->enqueue(p2PowerUp);
+            playerData->p2Layout->addWidget(p2PowerUp->getPowerUpImg(), 2, p2QueueSize);
+        }
+    }
 
     // Tiempo termina a los 5min
     if (secondsElapsed >= 300){

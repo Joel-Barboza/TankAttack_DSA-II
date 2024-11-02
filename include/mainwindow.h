@@ -21,11 +21,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     static Map* map;
+    PlayerData* playerData = nullptr;
 
 private:
     Ui::MainWindow *ui;
     QGraphicsView *view;
-    PlayerData* playerData;
 
     // Contador de segundos
     int secondsElapsed;

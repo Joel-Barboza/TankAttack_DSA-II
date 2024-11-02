@@ -5,6 +5,8 @@
 #include <include/map.h>
 #include <QDir>
 #include <QGraphicsSceneMouseEvent>
+#include <QLabel>
+#include <include/customlabel.h>
 
 
 class Tank: public QGraphicsPixmapItem {
@@ -41,6 +43,12 @@ public:
     void rotateEast();
     void rotateWest();
     void setCenteredPos(int x, int y);
+    void instaKill();
+    void reduceHealth();
+    CustomLabel* getTankImgPlyrData();
+
+    CustomLabel* getTankPercentagePlyrData();
+
 private:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
     int health = 100;
@@ -49,6 +57,8 @@ private:
     int nodeIndexPos;
     int topLeftX;
     int topLeftY;
+    CustomLabel* tankImgPlyrData = nullptr;
+    CustomLabel* tankPercentagePlyrData = nullptr;
 
 };
 
