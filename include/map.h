@@ -21,7 +21,19 @@ class Map : public QGraphicsScene {
     Q_OBJECT
 
 public:
+
+    enum class Turn {
+        Player1,
+        Player2
+    };
+
+    Turn currentTurn = Turn::Player1;
+    bool hasExtraTurn = false;
+
     explicit Map(QWidget *parent = nullptr);
+
+    void endTurn();
+
     void drawPath(SinglyLinkedList<int>* list, int startX, int startY);
     QTimer* timer = nullptr;
 
